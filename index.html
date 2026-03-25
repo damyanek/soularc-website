@@ -138,7 +138,7 @@
     z-index: 2;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 32px 60px 48px;
+    padding: 48px 60px 48px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
@@ -644,110 +644,133 @@
   .feature-card:nth-child(6) { transition-delay: 0.2s; }
 
   @media (max-width: 768px) {
+
     /* ── Global ── */
-    nav, .hero-inner, .features, .how-section, .cta-section, footer {
+    nav, .features, .how-section, .cta-section, footer {
       padding-left: 20px;
       padding-right: 20px;
     }
 
-    /* ── Hero ── */
-    .hero { min-height: auto; }
+    /* ── Hero: full viewport, everything visible above fold ── */
+    .hero { min-height: 100svh; display: flex; align-items: flex-start; }
     .hero-inner {
       display: flex;
       flex-direction: column;
+      align-items: center;
       gap: 0;
-      padding: 20px 20px 40px;
+      padding: 14px 20px 24px;
+      width: 100%;
     }
-    /* Reorder: H1 → carousel → sub → buttons */
+
+    /* Reorder: H1 → carousel → sub → button → coming soon */
     .hero-left { display: contents; }
+
     .hero-h1 {
       order: 1;
-      font-size: clamp(36px, 10vw, 52px);
-      margin-bottom: 0;
-      padding-bottom: 0;
+      font-size: clamp(30px, 9vw, 42px);
+      line-height: 1.08;
+      margin-bottom: 16px;
       text-align: center;
+      letter-spacing: -0.01em;
     }
     .hero-visual {
       order: 2;
-      height: 440px;
-      margin: 20px auto 20px;
+      height: auto;
       width: 100%;
+      margin: 0 auto 16px;
     }
     .hero-sub {
       order: 3;
-      font-size: 14px;
-      line-height: 1.65;
-      margin-bottom: 24px;
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 18px;
       text-align: center;
+      color: rgba(255,255,255,0.65);
+      max-width: 340px;
     }
     .hero-buttons {
       order: 4;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       justify-content: center;
+      width: 100%;
     }
     .hero-coming-soon {
       order: 5;
       text-align: center;
+      font-size: 12px;
     }
     .btn-appstore {
-      padding: 14px 28px;
+      padding: 14px 24px;
       width: 100%;
       justify-content: center;
-      max-width: 320px;
+      max-width: 300px;
       border-radius: 16px;
     }
 
-    /* ── Carousel ── */
-    .carousel-wrap { width: 320px; height: 430px; margin: 0 auto; }
-    .carousel-main { width: 200px; }
-    .carousel-main.is-home { width: 215px; }
-    .carousel-bg-left { width: 148px; right: 4px; }
-    .carousel-bg-right { width: 148px; left: 4px; }
-    .carousel-dots { bottom: -18px; }
-    .cdot.active { width: 20px; }
+    /* ── Carousel — larger, no dots ── */
+    .carousel-wrap {
+      width: 100%;
+      max-width: 360px;
+      height: 360px;
+      margin: 0 auto;
+    }
+    .carousel-main { width: 220px; }
+    .carousel-main.is-home { width: 238px; }
+    .carousel-bg-left { width: 160px; right: 0px; }
+    .carousel-bg-right { width: 160px; left: 0px; }
+    .carousel-dots { display: none; }
 
     /* ── Features ── */
-    .features { padding: 52px 20px; }
-    .features-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-    .feature-card { padding: 20px 16px; }
-    .feature-title { font-size: 15px; }
-    .feature-desc { font-size: 12px; }
-    .feature-icon { width: 36px; height: 36px; font-size: 16px; margin-bottom: 14px; }
+    .features { padding: 44px 16px; }
+    .features-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .feature-card { padding: 18px 14px; border-radius: 14px; }
+    .feature-title { font-size: 14px; margin-bottom: 7px; }
+    .feature-desc { font-size: 12px; line-height: 1.55; }
+    .feature-icon { width: 34px; height: 34px; font-size: 15px; margin-bottom: 12px; border-radius: 10px; }
 
     /* ── Quote ── */
-    .quote-section { padding: 52px 24px; }
-    .quote-text { font-size: clamp(18px, 5vw, 26px); }
+    .quote-inner { padding: 44px 24px !important; }
 
     /* ── How it feels ── */
-    .how-section { padding: 52px 20px 40px; overflow-x: hidden; }
-    .how-subtitle { font-size: 13px; margin-bottom: 40px; }
-    .journey { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    .journey svg { min-width: 700px; }
+    .how-section { padding: 44px 20px 32px; overflow-x: hidden; }
+    .how-subtitle { font-size: 13px; margin-bottom: 32px; }
+    .journey { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 16px; }
+    .journey svg { min-width: 680px; }
 
     /* ── CTA ── */
-    .cta-section { padding: 52px 20px; }
-    .cta-h2 { font-size: clamp(32px, 9vw, 48px); }
-    .cta-sub { font-size: 14px; }
+    .cta-section { padding: 52px 20px 60px; }
+    .cta-h2 { font-size: clamp(30px, 9vw, 46px); margin-bottom: 16px; }
+    .cta-sub { font-size: 14px; margin-bottom: 32px; }
+    .cta-buttons { justify-content: center; }
 
     /* ── Footer ── */
     footer {
       flex-direction: column;
-      gap: 16px;
+      gap: 18px;
       text-align: center;
-      padding: 24px 20px;
+      padding: 28px 20px;
     }
-    .footer-links { gap: 20px; flex-wrap: wrap; justify-content: center; }
+    .footer-links { gap: 24px; flex-wrap: wrap; justify-content: center; }
+    .footer-links a { font-size: 14px; padding: 4px 0; }
+    .sparkle { position: static; opacity: 0.3; width: 20px; height: 20px; }
 
     /* ── Modals ── */
-    .modal-box { padding: 32px 20px 28px; border-radius: 18px; }
-    .modal-box h2 { font-size: 20px; }
-    .modal-box h3 { font-size: 11px; }
-    .modal-box p { font-size: 13px; }
+    .modal-overlay { padding: 16px; align-items: flex-end; }
+    .modal-box {
+      padding: 28px 20px 24px;
+      border-radius: 20px 20px 16px 16px;
+      max-height: 88vh;
+    }
+    .modal-box h2 { font-size: 20px; padding-right: 36px; }
+    .modal-box h3 { font-size: 10px; margin-top: 20px; }
+    .modal-box p { font-size: 13px; line-height: 1.75; }
+    .modal-close { width: 30px; height: 30px; font-size: 13px; top: 14px; right: 14px; }
 
-    /* ── Hide side carousel decorations on very small screens ── */
-    @media (max-width: 420px) {
+    @media (max-width: 390px) {
       .carousel-bg-left, .carousel-bg-right { display: none; }
-      .hero-visual { height: 380px; }
+      .carousel-main { width: 200px; }
+      .carousel-main.is-home { width: 215px; }
+      .hero-h1 { font-size: clamp(28px, 8.5vw, 38px); }
     }
   }
 
@@ -878,8 +901,8 @@
 <body>
 
 <!-- TOP TAGLINE -->
-<div style="position:relative; z-index:10; text-align:center; padding: 22px 20px 0;">
-  <p style="font-size:10px; font-weight:500; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.28);">Shadow Work &nbsp;·&nbsp; Self Discovery &nbsp;·&nbsp; Jungian Psychology</p>
+<div style="position:fixed; top:0; left:0; right:0; z-index:100; text-align:center; padding: 14px 20px; background: linear-gradient(180deg, rgba(10,6,18,0.92) 0%, rgba(10,6,18,0) 100%); backdrop-filter: blur(0px);">
+  <p style="font-size:9px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.3);">Shadow Work &nbsp;·&nbsp; Self Discovery &nbsp;·&nbsp; Jungian Psychology</p>
 </div>
 
 <!-- HERO SECTION -->
