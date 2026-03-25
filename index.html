@@ -309,10 +309,13 @@
   .carousel-track {
     display: flex;
     width: 300%;
-    transition: transform 0.38s cubic-bezier(0.4, 0, 0.2, 1);
-    touch-action: none;
+    transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    touch-action: pan-y;
     user-select: none;
-    pointer-events: none;
+    will-change: transform;
+  }
+  .carousel-track.is-dragging {
+    transition: none;
   }
   .carousel-slide {
     flex: 0 0 33.333%;
@@ -1300,20 +1303,26 @@ for (let i = 0; i < 55; i++) {
 }
 
 // ── Carousel ──
-// slide 0 = home (longer dwell), 1 = onboarding, 2 = archetype
+// ─── CAROUSEL ───
 const slides = ['soul-arc-img-3.webp', 'soul-arc-img-1.webp', 'soul-arc-img-2.webp'];
-// For each slide: which images show in [left-fan, right-fan]
 const bgSlides = [
-  ['soul-arc-img-1.webp', 'soul-arc-img-2.webp'],  // home active: show onboard + archetype behind
-  ['soul-arc-img-3.webp', 'soul-arc-img-2.webp'],  // onboard active: show home + archetype behind
-  ['soul-arc-img-3.webp', 'soul-arc-img-1.webp']   // archetype active: show home + onboard behind
+  ['soul-arc-img-1.webp', 'soul-arc-img-2.webp'],
+  ['soul-arc-img-3.webp', 'soul-arc-img-2.webp'],
+  ['soul-arc-img-3.webp', 'soul-arc-img-1.webp']
 ];
-// Dwell times per slide in ms — home stays 2s longer
 const dwellTimes = [5000, 5000, 5000];
 let currentSlide = 0;
 let carouselTimer;
+let dragStartX = 0;
+let dragCurrentX = 0;
+let isDragging = false;
+let dragStartTime = 0;
 
-function setSlide(index) {
+function getSlideBaseX(index) {
+  return -(index * 33.333);
+}
+
+function setSlide(index, fromDrag) {
   const track = document.getElementById('carouselTrack');
   const bgLeftEl = document.querySelector('.carousel-bg-left');
   const bgRightEl = document.querySelector('.carousel-bg-right');
@@ -1321,17 +1330,16 @@ function setSlide(index) {
   const bgRight = bgRightEl ? bgRightEl.querySelector('img') : null;
   if (!track) return;
 
-  currentSlide = index;
+  currentSlide = ((index % slides.length) + slides.length) % slides.length;
 
-  // Snap track to the right slide — pure translateX, no opacity, no fade
-  track.style.transform = 'translateX(-' + (index * 33.333) + '%)';
+  track.classList.remove('is-dragging');
+  track.style.transform = 'translateX(' + getSlideBaseX(currentSlide) + '%)';
 
-  // Swap the fanned background images instantly
-  if (bgLeft)  bgLeft.src  = bgSlides[index][0];
-  if (bgRight) bgRight.src = bgSlides[index][1];
+  if (bgLeft)  bgLeft.src  = bgSlides[currentSlide][0];
+  if (bgRight) bgRight.src = bgSlides[currentSlide][1];
 
   document.querySelectorAll('.cdot').forEach(function(d, i) {
-    d.classList.toggle('active', i === index);
+    d.classList.toggle('active', i === currentSlide);
   });
 
   resetTimer();
@@ -1341,25 +1349,95 @@ function resetTimer() {
   clearTimeout(carouselTimer);
   var dwell = dwellTimes[currentSlide] || 3200;
   carouselTimer = setTimeout(function() {
-    setSlide((currentSlide + 1) % slides.length);
+    setSlide(currentSlide + 1);
   }, dwell);
 }
 
-// Preload all images so transitions are instant
-slides.forEach(function(src) {
-  var p = new Image();
-  p.src = src;
-});
-bgSlides.forEach(function(pair) {
-  pair.forEach(function(src) {
-    var p = new Image();
-    p.src = src;
-  });
+function getClientX(e) {
+  return e.touches ? e.touches[0].clientX : e.clientX;
+}
+
+function onDragStart(e) {
+  const track = document.getElementById('carouselTrack');
+  if (!track) return;
+  isDragging = true;
+  dragStartX = getClientX(e);
+  dragCurrentX = dragStartX;
+  dragStartTime = Date.now();
+  track.classList.add('is-dragging');
+  clearTimeout(carouselTimer);
+}
+
+function onDragMove(e) {
+  if (!isDragging) return;
+  const track = document.getElementById('carouselTrack');
+  if (!track) return;
+  dragCurrentX = getClientX(e);
+  const deltaX = dragCurrentX - dragStartX;
+  // Convert px delta to % of track width (track = 3 slides wide)
+  const trackEl = track.parentElement;
+  const containerWidth = trackEl ? trackEl.offsetWidth : 300;
+  const pctPerPx = 33.333 / containerWidth;
+  const dragPct = deltaX * pctPerPx;
+  // Apply resistance at edges
+  let resistance = 1;
+  if ((currentSlide === 0 && deltaX > 0) || (currentSlide === slides.length - 1 && deltaX < 0)) {
+    resistance = 0.25;
+  }
+  const newX = getSlideBaseX(currentSlide) + (dragPct * resistance);
+  track.style.transform = 'translateX(' + newX + '%)';
+  e.preventDefault && e.preventDefault();
+}
+
+function onDragEnd(e) {
+  if (!isDragging) return;
+  isDragging = false;
+  const track = document.getElementById('carouselTrack');
+  if (!track) return;
+
+  const deltaX = dragCurrentX - dragStartX;
+  const elapsed = Date.now() - dragStartTime;
+  const velocity = Math.abs(deltaX) / elapsed; // px/ms
+  const trackEl = track.parentElement;
+  const containerWidth = trackEl ? trackEl.offsetWidth : 300;
+  const threshold = containerWidth * 0.2; // 20% of width or fast flick
+
+  if (deltaX < -threshold || (velocity > 0.4 && deltaX < -10)) {
+    setSlide(currentSlide + 1);
+  } else if (deltaX > threshold || (velocity > 0.4 && deltaX > 10)) {
+    setSlide(currentSlide - 1);
+  } else {
+    // Snap back
+    track.classList.remove('is-dragging');
+    track.style.transform = 'translateX(' + getSlideBaseX(currentSlide) + '%)';
+    resetTimer();
+  }
+}
+
+// Attach touch + mouse events to carousel
+(function() {
+  var main_el = document.getElementById('carouselMain');
+  if (!main_el) return;
+  main_el.classList.add('is-home');
+
+  // Touch
+  main_el.addEventListener('touchstart', onDragStart, { passive: true });
+  main_el.addEventListener('touchmove', onDragMove, { passive: false });
+  main_el.addEventListener('touchend', onDragEnd);
+  main_el.addEventListener('touchcancel', onDragEnd);
+
+  // Mouse
+  main_el.addEventListener('mousedown', onDragStart);
+  window.addEventListener('mousemove', onDragMove);
+  window.addEventListener('mouseup', onDragEnd);
+})();
+
+// Preload all images
+slides.concat(bgSlides.flat()).forEach(function(src) {
+  var p = new Image(); p.src = src;
 });
 
-// Init — home slide first
-var main_el = document.getElementById('carouselMain');
-if (main_el) main_el.classList.add('is-home');
+// Init
 resetTimer();
 
 
