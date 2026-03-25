@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Soul Arc — Know your shadow. Become whole.</title>
 
 <style>
@@ -32,15 +32,25 @@
     scroll-behavior: smooth;
     background-color: #0a0612;
     overscroll-behavior-y: none;
+    /* Extend bg into iOS status bar area */
+    background-attachment: fixed;
   }
 
   body {
     background-color: #0a0612;
+    background-image:
+      radial-gradient(ellipse at 80% 0%, rgba(109,40,217,0.25) 0%, transparent 55%),
+      radial-gradient(ellipse at 20% 10%, rgba(76,29,149,0.15) 0%, transparent 50%);
+    background-attachment: fixed;
     color: var(--white);
     font-family: var(--font-body);
     line-height: 1.6;
     overflow-x: hidden;
     overscroll-behavior-y: contain;
+    /* Pad top for iOS safe area */
+    padding-top: env(safe-area-inset-top);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
   }
 
   /* ─── NOISE TEXTURE OVERLAY ─── */
@@ -174,7 +184,7 @@
     letter-spacing: -0.03em;
     margin-bottom: 22px;
     font-style: normal;
-    background: linear-gradient(180deg, #ffffff 0%, #d4c8ff 60%, #b89fff 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #ccc0fa 40%, #c8bcf9 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -594,7 +604,7 @@
   /* ─── FOOTER ─── */
   footer {
     position: relative;
-    z-index: 2;
+    z-index: 5;
     border-top: 1px solid rgba(255,255,255,0.06);
     padding: 28px 60px;
     max-width: 1200px;
@@ -652,12 +662,19 @@
     to   { opacity: 1; transform: none; }
   }
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
+    from { opacity: 0; transform: translateY(16px); }
     to   { opacity: 1; transform: none; }
   }
   .fade-up {
     opacity: 1;
-    animation: fadeUp 0.7s ease both;
+    animation: fadeUp 0.6s ease both;
+    animation-fill-mode: both;
+  }
+  /* Footer must always be visible */
+  footer, footer * {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 
   /* stagger for feature cards */
@@ -815,17 +832,22 @@
     background: rgba(0,0,0,0.75);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    z-index: 9999;
+    z-index: 99999;
     align-items: center;
     justify-content: center;
     padding: 20px;
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
     transition: opacity 0.25s ease, visibility 0.25s ease;
+    /* Prevent iOS scroll-position bugs */
+    -webkit-overflow-scrolling: touch;
+    will-change: opacity;
   }
   .modal-overlay.open {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
   }
   .modal-box {
     background: linear-gradient(145deg, #140d24, #0e0819);
@@ -1131,7 +1153,7 @@
 </div>
 
 <!-- FOOTER -->
-<footer>
+<footer style="opacity:1 !important;">
   <div class="footer-logo">Soul Arc</div>
   <div class="footer-links">
     <a href="#" onclick="openModal('privacy'); return false;">Privacy Policy</a>
@@ -1160,13 +1182,13 @@
     <p>Your data is used solely to operate Soul Arc. Journal entries and shadow work content are private and never shared with third parties or used for advertising. We use aggregated, anonymized data only to improve app features.</p>
 
     <h3>Data Storage & Security</h3>
-    <p>Your personal data is encrypted in transit and at rest using industry-standard security measures. You may request deletion of your account and all associated data at any time by contacting us at <a href="/cdn-cgi/l/email-protection#6f070a031f2f1c001a030e1d0c410e1f1f" style="color:#a78bfa;"><span class="__cf_email__" data-cfemail="9cf4f9f0ecdceff3e9f0fdeeffb2fdecec">[email&#160;protected]</span></a>.</p>
+    <p>Your personal data is encrypted in transit and at rest using industry-standard security measures. You may request deletion of your account and all associated data at any time by contacting us at <span class="cf-email-fix" style="color:#a78bfa; cursor:pointer; text-decoration:underline;" onclick="window.location.href='mai'+'lto:'+'help'+'@'+'soularc'+'.'+'app'">help@soularc.app</span>.</p>
 
     <h3>Third-Party Services</h3>
     <p>Soul Arc uses RevenueCat for subscription management and Apple for in-app purchases. These services operate under their own privacy policies. We do not sell your personal information to any third party — ever.</p>
 
     <h3>Contact</h3>
-    <p>For privacy-related questions, reach us at <a href="/cdn-cgi/l/email-protection#7b131e170b3b08140e171a0918551a0b0b" style="color:#a78bfa;"><span class="__cf_email__" data-cfemail="ec8489809cac9f8399808d9e8fc28d9c9c">[email&#160;protected]</span></a>.</p>
+    <p>For privacy-related questions, reach us at <span class="cf-email-fix" style="color:#a78bfa; cursor:pointer; text-decoration:underline;" onclick="window.location.href='mai'+'lto:'+'help'+'@'+'soularc'+'.'+'app'">help@soularc.app</span>.</p>
   </div>
 </div>
 
@@ -1204,16 +1226,16 @@
     <div class="modal-divider"></div>
 
     <h3>📧 Email Us</h3>
-    <p><a href="/cdn-cgi/l/email-protection#c9a1aca5b989baa6bca5a8bbaae7a8b9b9" style="color:#a78bfa; font-weight:600;"><span class="__cf_email__" data-cfemail="ef878a839faf9c809a838e9d8cc18e9f9f">[email&#160;protected]</span></a></p>
+    <p><span class="cf-email-fix" style="color:#a78bfa; font-weight:600; cursor:pointer; text-decoration:underline;" onclick="window.location.href='mai'+'lto:'+ 'help'+ '@'+ 'soularc'+'.'+'app'">help@soularc.app</span></p>
 
     <h3>🐛 Report a Bug</h3>
     <p>Found something broken? Email us with your device model, iOS version, and a description of the issue. Screenshots are always helpful.</p>
 
     <h3>💳 Billing & Subscriptions</h3>
-    <p>Manage or cancel your subscription through your Apple ID settings under Subscriptions. For refund requests, contact us directly at <a href="/cdn-cgi/l/email-protection#bfd7dad3cfffccd0cad3decddc91decfcf" style="color:#a78bfa;"><span class="__cf_email__" data-cfemail="19717c7569596a766c75786b7a37786969">[email&#160;protected]</span></a>.</p>
+    <p>Manage or cancel your subscription through your Apple ID settings under Subscriptions. For refund requests, contact us directly at <span class="cf-email-fix" style="color:#a78bfa; cursor:pointer; text-decoration:underline;" onclick="window.location.href='mai'+'lto:'+'help'+'@'+'soularc'+'.'+'app'">help@soularc.app</span>.</p>
 
     <h3>💡 Feature Requests</h3>
-    <p>Have an idea that would deepen your shadow work practice? We'd love to hear it — send suggestions to <a href="/cdn-cgi/l/email-protection#92faf7fee2d2e1fde7fef3e0f1bcf3e2e2" style="color:#a78bfa;"><span class="__cf_email__" data-cfemail="5a323f362a1a29352f363b2839743b2a2a">[email&#160;protected]</span></a>.</p>
+    <p>Have an idea that would deepen your shadow work practice? We'd love to hear it — send suggestions to <span class="cf-email-fix" style="color:#a78bfa; cursor:pointer; text-decoration:underline;" onclick="window.location.href='mai'+'lto:'+'help'+'@'+'soularc'+'.'+'app'">help@soularc.app</span>.</p>
   </div>
 </div>
 
@@ -1309,8 +1331,20 @@ function resetTimer() {
   }, dwell);
 }
 
+// Preload all images so transitions are instant
+slides.forEach(function(src) {
+  var p = new Image();
+  p.src = src;
+});
+bgSlides.forEach(function(pair) {
+  pair.forEach(function(src) {
+    var p = new Image();
+    p.src = src;
+  });
+});
+
 // Init — home slide first
-main_el = document.getElementById('carouselMain');
+var main_el = document.getElementById('carouselMain');
 if (main_el) main_el.classList.add('is-home');
 resetTimer();
 
