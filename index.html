@@ -254,24 +254,56 @@
   }
   .carousel-wrap {
     position: relative;
-    width: 300px;
+    width: 460px;
     height: 520px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  /* Single slide container */
+  /* Fanned background screens */
+  .carousel-bg-left,
+  .carousel-bg-right {
+    position: absolute;
+    width: 200px;
+    top: 50%;
+    pointer-events: none;
+    overflow: visible;
+    z-index: 1;
+    transition: opacity 0.5s ease;
+  }
+  .carousel-bg-left {
+    right: 0px;
+    transform: translateY(-48%) rotate(10deg) scale(0.78);
+    opacity: 0.38;
+    filter: blur(1px) brightness(0.6) saturate(0.8);
+  }
+  .carousel-bg-right {
+    left: 0px;
+    transform: translateY(-52%) rotate(-10deg) scale(0.78);
+    opacity: 0.38;
+    filter: blur(1px) brightness(0.6) saturate(0.8);
+  }
+  .carousel-bg-left img,
+  .carousel-bg-right img {
+    height: 500px;
+    width: auto;
+    display: block;
+    margin: 0 auto;
+    transition: opacity 0.4s ease;
+  }
+
+  /* Main front screen */
   .carousel-main {
     position: relative;
     z-index: 3;
-    width: 280px;
+    width: 260px;
     height: 500px;
     filter: drop-shadow(0 40px 80px rgba(0,0,0,0.85))
             drop-shadow(0 0 60px rgba(109,40,217,0.35));
   }
 
-  /* Each slide stacked on top of each other */
+  /* Each slide stacked — crossfade */
   .carousel-slide {
     position: absolute;
     inset: 0;
@@ -746,9 +778,12 @@
       height: 340px;
       margin: 0 auto;
     }
-    .carousel-main { width: 100%; max-width: 300px; }
-    .carousel-main.is-home { width: 100%; max-width: 300px; }
-    .carousel-main img, .carousel-slide img { height: 320px; width: auto; }
+    .carousel-wrap { width: 340px; }
+    .carousel-bg-left { width: 155px; right: 2px; }
+    .carousel-bg-left img, .carousel-bg-right img { height: 320px; }
+    .carousel-bg-right { width: 155px; left: 2px; }
+    .carousel-main { width: 100%; max-width: 220px; }
+    .carousel-slide img { height: 320px; width: auto; }
     .carousel-dots { display: none; }
 
     /* ── Features ── */
@@ -796,9 +831,12 @@
 
     @media (max-width: 390px) {
       .hero-h1 { font-size: clamp(42px, 13vw, 60px); }
-      .carousel-main { width: 100%; max-width: 280px; }
-      .carousel-main.is-home { width: 100%; max-width: 280px; }
-      .carousel-main img, .carousel-slide img { height: 280px; }
+      .carousel-wrap { width: 300px; }
+      .carousel-bg-left { width: 138px; right: 2px; }
+      .carousel-bg-left img, .carousel-bg-right img { height: 280px; }
+      .carousel-bg-right { width: 138px; left: 2px; }
+      .carousel-main { width: 100%; max-width: 200px; }
+      .carousel-slide img { height: 280px; }
     }
   }
 
@@ -958,10 +996,18 @@
     <!-- RIGHT: SCREENSHOT CAROUSEL -->
     <div class="hero-visual fade-up" style="transition-delay:0.15s">
       <div class="carousel-wrap">
+        <!-- Fanned background screens -->
+        <div class="carousel-bg-left" id="carouselBgLeft">
+          <img src="soul-arc-img-2.webp" alt="Soul Arc screen" />
+        </div>
+        <div class="carousel-bg-right" id="carouselBgRight">
+          <img src="soul-arc-img-1.webp" alt="Soul Arc screen" />
+        </div>
+        <!-- Main front screen — crossfade -->
         <div class="carousel-main" id="carouselMain">
-          <div class="carousel-slide active" id="slide-0"><img src="soul-arc-img-1.webp" alt="Soul Arc screen 1" /></div>
-          <div class="carousel-slide" id="slide-1"><img src="soul-arc-img-2.webp" alt="Soul Arc screen 2" /></div>
-          <div class="carousel-slide" id="slide-2"><img src="soul-arc-img-3.webp" alt="Soul Arc screen 3" /></div>
+          <div class="carousel-slide active" id="slide-0"><img src="soul-arc-img-3.webp" alt="Soul Arc waving skeleton" /></div>
+          <div class="carousel-slide" id="slide-1"><img src="soul-arc-img-2.webp" alt="Soul Arc home" /></div>
+          <div class="carousel-slide" id="slide-2"><img src="soul-arc-img-1.webp" alt="Soul Arc archetype" /></div>
         </div>
         <!-- Pill dots -->
         <div class="carousel-dots">
@@ -1254,6 +1300,13 @@ for (let i = 0; i < 55; i++) {
 
 // ── Carousel ──
 // ─── CAROUSEL ───
+// Slide order: 0=waving skeleton(img3), 1=home(img2), 2=archetype(img1)
+// For each front slide: [left-fan-img, right-fan-img]
+var bgPairs = [
+  ['soul-arc-img-2.webp', 'soul-arc-img-1.webp'],  // slide 0 front: show home + archetype behind
+  ['soul-arc-img-3.webp', 'soul-arc-img-1.webp'],  // slide 1 front: show skeleton + archetype behind
+  ['soul-arc-img-3.webp', 'soul-arc-img-2.webp']   // slide 2 front: show skeleton + home behind
+];
 var currentSlide = 0;
 var totalSlides = 3;
 var carouselTimer;
@@ -1261,15 +1314,19 @@ var carouselTimer;
 function setSlide(index) {
   index = ((index % totalSlides) + totalSlides) % totalSlides;
 
-  // Hide all slides
+  // Crossfade main slides
   for (var i = 0; i < totalSlides; i++) {
     var el = document.getElementById('slide-' + i);
     if (el) el.classList.remove('active');
   }
-
-  // Show target slide
   var target = document.getElementById('slide-' + index);
   if (target) target.classList.add('active');
+
+  // Swap fan background images
+  var bgLeft = document.querySelector('#carouselBgLeft img');
+  var bgRight = document.querySelector('#carouselBgRight img');
+  if (bgLeft)  bgLeft.src  = bgPairs[index][0];
+  if (bgRight) bgRight.src = bgPairs[index][1];
 
   // Update dots
   document.querySelectorAll('.cdot').forEach(function(d, i) {
@@ -1287,7 +1344,7 @@ function resetTimer() {
   }, 4000);
 }
 
-// Preload images
+// Preload all images
 ['soul-arc-img-1.webp','soul-arc-img-2.webp','soul-arc-img-3.webp'].forEach(function(src) {
   var p = new Image(); p.src = src;
 });
