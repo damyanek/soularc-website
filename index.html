@@ -1409,45 +1409,65 @@ function setSlide(index) {
   const bgRight = bgRightEl ? bgRightEl.querySelector('img') : null;
   if (!img || !main) return;
 
-  // Disable transition temporarily to set enter state instantly
+  const FADE_MS = 350;
+
+  // STEP 1: snap to known visible state (no transition), then trigger exit on next frame
   main.style.transition = 'none';
-  main.classList.remove('slide-enter', 'slide-exit');
+  main.style.opacity = '1';
+  main.style.transform = 'scale(1) translateY(0)';
+  if (bgLeftEl) { bgLeftEl.style.transition = 'none'; bgLeftEl.style.opacity = '0.38'; }
+  if (bgRightEl) { bgRightEl.style.transition = 'none'; bgRightEl.style.opacity = '0.38'; }
 
-  // --- EXIT: fade + scale down main image ---
-  main.style.transition = 'opacity 0.38s cubic-bezier(0.4,0,0.2,1), transform 0.38s cubic-bezier(0.4,0,0.2,1)';
-  main.classList.add('slide-exit');
+  // Force reflow so the snap above is committed before we add transitions
+  main.offsetHeight; // eslint-disable-line
 
-  // --- EXIT: fade out bg fans ---
-  if (bgLeftEl) bgLeftEl.classList.add('fading');
-  if (bgRightEl) bgRightEl.classList.add('fading');
+  // STEP 2: apply transition + exit state
+  main.style.transition = 'opacity ' + FADE_MS + 'ms ease, transform ' + FADE_MS + 'ms ease';
+  main.style.opacity = '0';
+  main.style.transform = 'scale(0.94) translateY(8px)';
 
-  setTimeout(() => {
+  if (bgLeftEl) {
+    bgLeftEl.style.transition = 'opacity ' + FADE_MS + 'ms ease';
+    bgLeftEl.style.opacity = '0';
+  }
+  if (bgRightEl) {
+    bgRightEl.style.transition = 'opacity ' + FADE_MS + 'ms ease';
+    bgRightEl.style.opacity = '0';
+  }
+
+  // STEP 3: after exit completes, swap src and fade in
+  setTimeout(function() {
     currentSlide = index;
-
-    // Swap all images while invisible
     img.src = slides[index];
     if (bgLeft) bgLeft.src = bgSlides[index][0];
     if (bgRight) bgRight.src = bgSlides[index][1];
 
-    // Set enter start state (invisible, slightly above)
+    // Snap to enter-from state (invisible, offset)
     main.style.transition = 'none';
-    main.classList.remove('slide-exit');
-    main.classList.add('slide-enter');
+    main.style.opacity = '0';
+    main.style.transform = 'scale(1.04) translateY(-8px)';
 
-    // Force reflow so transition fires
+    // Force reflow
     main.offsetHeight; // eslint-disable-line
 
-    // --- ENTER: animate in ---
-    main.style.transition = 'opacity 0.45s cubic-bezier(0.2,0,0,1), transform 0.45s cubic-bezier(0.2,0,0,1)';
-    main.classList.remove('slide-enter');
+    // Animate to resting state
+    main.style.transition = 'opacity ' + FADE_MS + 'ms ease, transform ' + FADE_MS + 'ms ease';
+    main.style.opacity = '1';
+    main.style.transform = 'scale(1) translateY(0)';
 
-    // --- ENTER: fade bg fans back in ---
-    if (bgLeftEl) bgLeftEl.classList.remove('fading');
-    if (bgRightEl) bgRightEl.classList.remove('fading');
+    if (bgLeftEl) {
+      bgLeftEl.style.transition = 'opacity ' + FADE_MS + 'ms ease';
+      bgLeftEl.style.opacity = '0.38';
+    }
+    if (bgRightEl) {
+      bgRightEl.style.transition = 'opacity ' + FADE_MS + 'ms ease';
+      bgRightEl.style.opacity = '0.38';
+    }
 
-    // Update dots
-    document.querySelectorAll('.cdot').forEach((d, i) => d.classList.toggle('active', i === index));
-  }, 400);
+    document.querySelectorAll('.cdot').forEach(function(d, i) {
+      d.classList.toggle('active', i === index);
+    });
+  }, FADE_MS + 20);
 
   resetTimer();
 }
