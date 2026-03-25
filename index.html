@@ -252,81 +252,45 @@
     align-items: center;
     height: 580px;
   }
-      .carousel-wrap {
+  .carousel-wrap {
     position: relative;
-    width: 460px;
-    height: 480px;
+    width: 300px;
+    height: 520px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  /* Side screens — peek behind, lower opacity, more tilt */
-  .carousel-bg-left,
-  .carousel-bg-right {
-    position: absolute;
-    width: 200px;
-    top: 50%;
-    pointer-events: none;
-    overflow: visible;
-    z-index: 1;
-  }
-  .carousel-bg-left {
-    right: 0px;
-    transform: translateY(-48%) rotate(10deg) scale(0.78);
-    opacity: 0.38;
-    filter: blur(1px) brightness(0.6) saturate(0.8);
-  }
-  .carousel-bg-right {
-    left: 0px;
-    transform: translateY(-52%) rotate(-10deg) scale(0.78);
-    opacity: 0.38;
-    filter: blur(1px) brightness(0.6) saturate(0.8);
-  }
-  .carousel-bg-left img,
-  .carousel-bg-right img {
-    height: 340px;
-    width: auto;
-    display: block;
-    margin: 0 auto;
-  }
-
-  /* Main screen — swipe container */
+  /* Single slide container */
   .carousel-main {
     position: relative;
     z-index: 3;
-    filter: drop-shadow(0 40px 80px rgba(0,0,0,0.85))
-            drop-shadow(0 0 60px rgba(109,40,217,0.3));
-    width: 260px;
-    overflow: hidden;
-    touch-action: none;
-    user-select: none;
-  }
-  .carousel-main.is-home {
     width: 280px;
+    height: 500px;
+    filter: drop-shadow(0 40px 80px rgba(0,0,0,0.85))
+            drop-shadow(0 0 60px rgba(109,40,217,0.35));
   }
-  /* The inner track holds all 3 slides side by side */
-  .carousel-track {
-    display: flex;
-    width: 300%;
-    transition: transform 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    touch-action: pan-y;
-    user-select: none;
-    will-change: transform;
-  }
-  .carousel-track.is-dragging {
-    transition: none;
-  }
+
+  /* Each slide stacked on top of each other */
   .carousel-slide {
-    flex: 0 0 33.333%;
+    position: absolute;
+    inset: 0;
     display: flex;
+    align-items: center;
     justify-content: center;
+    opacity: 0;
+    transition: opacity 0.7s ease;
+    pointer-events: none;
   }
-  .carousel-main img, .carousel-slide img {
-    height: 440px;
+  .carousel-slide.active {
+    opacity: 1;
+  }
+  .carousel-slide img {
+    height: 500px;
     width: auto;
     display: block;
     margin: 0 auto;
+    object-fit: contain;
   }
 
   /* Progress dots */
@@ -785,8 +749,6 @@
     .carousel-main { width: 100%; max-width: 300px; }
     .carousel-main.is-home { width: 100%; max-width: 300px; }
     .carousel-main img, .carousel-slide img { height: 320px; width: auto; }
-    .carousel-bg-left { width: 168px; right: 2px; }
-    .carousel-bg-right { width: 168px; left: 2px; }
     .carousel-dots { display: none; }
 
     /* ── Features ── */
@@ -837,7 +799,6 @@
       .carousel-main { width: 100%; max-width: 280px; }
       .carousel-main.is-home { width: 100%; max-width: 280px; }
       .carousel-main img, .carousel-slide img { height: 280px; }
-      .carousel-bg-left, .carousel-bg-right { width: 150px; }
     }
   }
 
@@ -997,21 +958,10 @@
     <!-- RIGHT: SCREENSHOT CAROUSEL -->
     <div class="hero-visual fade-up" style="transition-delay:0.15s">
       <div class="carousel-wrap">
-        <!-- Fanned background screens -->
-        <div class="carousel-bg-left">
-          <img src="soul-arc-img-1.webp" alt="Soul Arc screen" />
-        </div>
-        <div class="carousel-bg-right">
-          <img src="soul-arc-img-2.webp" alt="Soul Arc screen" />
-        </div>
-        <!-- Main front screen -->
-                <!-- Main front screen — swipe track -->
         <div class="carousel-main" id="carouselMain">
-          <div class="carousel-track" id="carouselTrack">
-            <div class="carousel-slide"><img src="soul-arc-img-3.webp" alt="Soul Arc" /></div>
-            <div class="carousel-slide"><img src="soul-arc-img-1.webp" alt="Soul Arc" /></div>
-            <div class="carousel-slide"><img src="soul-arc-img-2.webp" alt="Soul Arc" /></div>
-          </div>
+          <div class="carousel-slide active" id="slide-0"><img src="soul-arc-img-1.webp" alt="Soul Arc screen 1" /></div>
+          <div class="carousel-slide" id="slide-1"><img src="soul-arc-img-2.webp" alt="Soul Arc screen 2" /></div>
+          <div class="carousel-slide" id="slide-2"><img src="soul-arc-img-3.webp" alt="Soul Arc screen 3" /></div>
         </div>
         <!-- Pill dots -->
         <div class="carousel-dots">
@@ -1304,136 +1254,41 @@ for (let i = 0; i < 55; i++) {
 
 // ── Carousel ──
 // ─── CAROUSEL ───
-const slides = ['soul-arc-img-3.webp', 'soul-arc-img-1.webp', 'soul-arc-img-2.webp'];
-const bgSlides = [
-  ['soul-arc-img-1.webp', 'soul-arc-img-2.webp'],
-  ['soul-arc-img-3.webp', 'soul-arc-img-2.webp'],
-  ['soul-arc-img-3.webp', 'soul-arc-img-1.webp']
-];
-const dwellTimes = [5000, 5000, 5000];
-let currentSlide = 0;
-let carouselTimer;
-let dragStartX = 0;
-let dragCurrentX = 0;
-let isDragging = false;
-let dragStartTime = 0;
+var currentSlide = 0;
+var totalSlides = 3;
+var carouselTimer;
 
-function getSlideBaseX(index) {
-  return -(index * 33.333);
-}
+function setSlide(index) {
+  index = ((index % totalSlides) + totalSlides) % totalSlides;
 
-function setSlide(index, fromDrag) {
-  const track = document.getElementById('carouselTrack');
-  const bgLeftEl = document.querySelector('.carousel-bg-left');
-  const bgRightEl = document.querySelector('.carousel-bg-right');
-  const bgLeft = bgLeftEl ? bgLeftEl.querySelector('img') : null;
-  const bgRight = bgRightEl ? bgRightEl.querySelector('img') : null;
-  if (!track) return;
+  // Hide all slides
+  for (var i = 0; i < totalSlides; i++) {
+    var el = document.getElementById('slide-' + i);
+    if (el) el.classList.remove('active');
+  }
 
-  currentSlide = ((index % slides.length) + slides.length) % slides.length;
+  // Show target slide
+  var target = document.getElementById('slide-' + index);
+  if (target) target.classList.add('active');
 
-  track.classList.remove('is-dragging');
-  track.style.transform = 'translateX(' + getSlideBaseX(currentSlide) + '%)';
-
-  if (bgLeft)  bgLeft.src  = bgSlides[currentSlide][0];
-  if (bgRight) bgRight.src = bgSlides[currentSlide][1];
-
+  // Update dots
   document.querySelectorAll('.cdot').forEach(function(d, i) {
-    d.classList.toggle('active', i === currentSlide);
+    d.classList.toggle('active', i === index);
   });
 
+  currentSlide = index;
   resetTimer();
 }
 
 function resetTimer() {
   clearTimeout(carouselTimer);
-  var dwell = dwellTimes[currentSlide] || 3200;
   carouselTimer = setTimeout(function() {
     setSlide(currentSlide + 1);
-  }, dwell);
+  }, 4000);
 }
 
-function getClientX(e) {
-  return e.touches ? e.touches[0].clientX : e.clientX;
-}
-
-function onDragStart(e) {
-  const track = document.getElementById('carouselTrack');
-  if (!track) return;
-  isDragging = true;
-  dragStartX = getClientX(e);
-  dragCurrentX = dragStartX;
-  dragStartTime = Date.now();
-  track.classList.add('is-dragging');
-  clearTimeout(carouselTimer);
-}
-
-function onDragMove(e) {
-  if (!isDragging) return;
-  const track = document.getElementById('carouselTrack');
-  if (!track) return;
-  dragCurrentX = getClientX(e);
-  const deltaX = dragCurrentX - dragStartX;
-  // Convert px delta to % of track width (track = 3 slides wide)
-  const trackEl = track.parentElement;
-  const containerWidth = trackEl ? trackEl.offsetWidth : 300;
-  const pctPerPx = 33.333 / containerWidth;
-  const dragPct = deltaX * pctPerPx;
-  // Apply resistance at edges
-  let resistance = 1;
-  if ((currentSlide === 0 && deltaX > 0) || (currentSlide === slides.length - 1 && deltaX < 0)) {
-    resistance = 0.25;
-  }
-  const newX = getSlideBaseX(currentSlide) + (dragPct * resistance);
-  track.style.transform = 'translateX(' + newX + '%)';
-  e.preventDefault && e.preventDefault();
-}
-
-function onDragEnd(e) {
-  if (!isDragging) return;
-  isDragging = false;
-  const track = document.getElementById('carouselTrack');
-  if (!track) return;
-
-  const deltaX = dragCurrentX - dragStartX;
-  const elapsed = Date.now() - dragStartTime;
-  const velocity = Math.abs(deltaX) / elapsed; // px/ms
-  const trackEl = track.parentElement;
-  const containerWidth = trackEl ? trackEl.offsetWidth : 300;
-  const threshold = containerWidth * 0.2; // 20% of width or fast flick
-
-  if (deltaX < -threshold || (velocity > 0.4 && deltaX < -10)) {
-    setSlide(currentSlide + 1);
-  } else if (deltaX > threshold || (velocity > 0.4 && deltaX > 10)) {
-    setSlide(currentSlide - 1);
-  } else {
-    // Snap back
-    track.classList.remove('is-dragging');
-    track.style.transform = 'translateX(' + getSlideBaseX(currentSlide) + '%)';
-    resetTimer();
-  }
-}
-
-// Attach touch + mouse events to carousel
-(function() {
-  var main_el = document.getElementById('carouselMain');
-  if (!main_el) return;
-  main_el.classList.add('is-home');
-
-  // Touch
-  main_el.addEventListener('touchstart', onDragStart, { passive: true });
-  main_el.addEventListener('touchmove', onDragMove, { passive: false });
-  main_el.addEventListener('touchend', onDragEnd);
-  main_el.addEventListener('touchcancel', onDragEnd);
-
-  // Mouse
-  main_el.addEventListener('mousedown', onDragStart);
-  window.addEventListener('mousemove', onDragMove);
-  window.addEventListener('mouseup', onDragEnd);
-})();
-
-// Preload all images
-slides.concat(bgSlides.flat()).forEach(function(src) {
+// Preload images
+['soul-arc-img-1.webp','soul-arc-img-2.webp','soul-arc-img-3.webp'].forEach(function(src) {
   var p = new Image(); p.src = src;
 });
 
