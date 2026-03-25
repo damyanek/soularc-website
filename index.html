@@ -307,19 +307,24 @@
   }
 
   .btn-appstore {
-    background: #000;
+    background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 60%, #4c1d95 100%);
     color: #fff;
-    border: 1px solid rgba(255,255,255,0.12);
-    padding: 12px 24px;
+    border: 1px solid rgba(167,139,250,0.35);
+    padding: 14px 28px;
     gap: 12px;
-    border-radius: 14px;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(124,58,237,0.45), 0 1px 0 rgba(255,255,255,0.1) inset;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
   }
   .btn-appstore:hover {
-    background: #111;
-    border-color: rgba(255,255,255,0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(124,58,237,0.6), 0 1px 0 rgba(255,255,255,0.15) inset;
+    filter: brightness(1.08);
+    border-color: rgba(167,139,250,0.5);
   }
-  .btn-appstore .store-sub { color: rgba(255,255,255,0.55); }
-  .btn-appstore .store-name { color: #fff; font-size: 16px; }
+  .btn-appstore:active { transform: translateY(0); }
+  .btn-appstore .store-sub { color: rgba(255,255,255,0.7); font-size: 10px; }
+  .btn-appstore .store-name { color: #fff; font-size: 17px; font-weight: 700; }
   .features {
     position: relative;
     z-index: 2;
@@ -646,39 +651,60 @@
     }
 
     /* ── Hero ── */
-    .hero { min-height: auto; padding-top: 20px; }
+    .hero { min-height: auto; }
     .hero-inner {
-      grid-template-columns: 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 0;
-      padding: 32px 20px 40px;
+      padding: 20px 20px 40px;
     }
-    .hero-tag {
-      font-size: 9px;
-      padding: 5px 12px;
-      letter-spacing: 0.1em;
-      margin-bottom: 20px;
-    }
+    /* Reorder: H1 → carousel → sub → buttons */
+    .hero-left { display: contents; }
     .hero-h1 {
-      font-size: clamp(40px, 11vw, 56px);
-      margin-bottom: 16px;
+      order: 1;
+      font-size: clamp(36px, 10vw, 52px);
+      margin-bottom: 0;
+      padding-bottom: 0;
+      text-align: center;
+    }
+    .hero-visual {
+      order: 2;
+      height: 440px;
+      margin: 20px auto 20px;
+      width: 100%;
     }
     .hero-sub {
+      order: 3;
       font-size: 14px;
-      margin-bottom: 28px;
+      line-height: 1.65;
+      margin-bottom: 24px;
+      text-align: center;
     }
-    .hero-buttons { margin-bottom: 14px; }
-    .btn-appstore { padding: 10px 20px; }
+    .hero-buttons {
+      order: 4;
+      margin-bottom: 12px;
+      justify-content: center;
+    }
+    .hero-coming-soon {
+      order: 5;
+      text-align: center;
+    }
+    .btn-appstore {
+      padding: 14px 28px;
+      width: 100%;
+      justify-content: center;
+      max-width: 320px;
+      border-radius: 16px;
+    }
 
     /* ── Carousel ── */
-    .hero-visual {
-      height: 420px;
-      margin-top: 32px;
-    }
-    .carousel-wrap { width: 200px; height: 420px; }
+    .carousel-wrap { width: 320px; height: 430px; margin: 0 auto; }
     .carousel-main { width: 200px; }
-    .carousel-main img { border-radius: 32px; }
-    .carousel-bg-left { left: -80px; width: 140px; }
-    .carousel-bg-right { right: -80px; width: 140px; }
+    .carousel-main.is-home { width: 215px; }
+    .carousel-bg-left { width: 148px; right: 4px; }
+    .carousel-bg-right { width: 148px; left: 4px; }
+    .carousel-dots { bottom: -18px; }
+    .cdot.active { width: 20px; }
 
     /* ── Features ── */
     .features { padding: 52px 20px; }
