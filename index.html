@@ -138,7 +138,7 @@
     z-index: 2;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 48px 60px 48px;
+    padding: 32px 60px 48px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 40px;
@@ -214,6 +214,14 @@
     margin-top: 6px;
   }
   .hero-coming-soon a { color: var(--purple-soft); text-decoration: none; }
+  .hero-tagline {
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.28);
+    margin-top: 20px;
+  }
 
   /* ─── HERO RIGHT: SCREENSHOT CAROUSEL ─── */
   .hero-visual {
@@ -236,7 +244,7 @@
   .carousel-bg-left,
   .carousel-bg-right {
     position: absolute;
-    width: 185px;
+    width: 200px;
     top: 50%;
     pointer-events: none;
     overflow: visible;
@@ -273,7 +281,7 @@
     width: 260px;
   }
   .carousel-main.is-home {
-    width: 285px;
+    width: 280px;
   }
   .carousel-main img {
     width: 100%;
@@ -310,19 +318,26 @@
     background: linear-gradient(135deg, #7c3aed 0%, #5b21b6 60%, #4c1d95 100%);
     color: #fff;
     border: 1px solid rgba(167,139,250,0.35);
-    padding: 14px 28px;
-    gap: 12px;
-    border-radius: 16px;
+    padding: 15px 32px;
+    gap: 10px;
+    border-radius: 100px;
     box-shadow: 0 4px 24px rgba(124,58,237,0.45), 0 1px 0 rgba(255,255,255,0.1) inset;
     transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    align-items: center;
   }
   .btn-appstore:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(124,58,237,0.6), 0 1px 0 rgba(255,255,255,0.15) inset;
+    box-shadow: 0 8px 36px rgba(124,58,237,0.65), 0 1px 0 rgba(255,255,255,0.15) inset;
     filter: brightness(1.08);
-    border-color: rgba(167,139,250,0.5);
   }
   .btn-appstore:active { transform: translateY(0); }
+  .btn-appstore-label {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    white-space: nowrap;
+    font-family: var(--font-body);
+  }
   .btn-appstore .store-sub { color: rgba(255,255,255,0.7); font-size: 10px; }
   .btn-appstore .store-name { color: #fff; font-size: 17px; font-weight: 700; }
   .features {
@@ -651,42 +666,40 @@
       padding-right: 20px;
     }
 
-    /* ── Hero: full viewport, everything visible above fold ── */
-    .hero { min-height: 100svh; display: flex; align-items: flex-start; }
+    /* ── Hero: everything visible on first screen ── */
+    .hero { min-height: 100svh; align-items: flex-start; }
     .hero-inner {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0;
-      padding: 14px 20px 24px;
+      padding: 20px 20px 16px;
       width: 100%;
     }
 
-    /* Reorder: H1 → carousel → sub → button → coming soon */
+    /* Order: H1 → carousel → sub → button → coming soon → tagline */
     .hero-left { display: contents; }
 
     .hero-h1 {
       order: 1;
-      font-size: clamp(30px, 9vw, 42px);
-      line-height: 1.08;
-      margin-bottom: 16px;
+      font-size: clamp(28px, 8.5vw, 40px);
+      line-height: 1.1;
+      margin-bottom: 14px;
       text-align: center;
-      letter-spacing: -0.01em;
     }
     .hero-visual {
       order: 2;
-      height: auto;
       width: 100%;
-      margin: 0 auto 16px;
+      height: auto;
+      margin-bottom: 14px;
     }
     .hero-sub {
       order: 3;
       font-size: 13px;
       line-height: 1.6;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       text-align: center;
-      color: rgba(255,255,255,0.65);
-      max-width: 340px;
+      max-width: 320px;
     }
     .hero-buttons {
       order: 4;
@@ -698,30 +711,41 @@
       order: 5;
       text-align: center;
       font-size: 12px;
+      margin-bottom: 10px;
     }
-    .btn-appstore {
-      padding: 14px 24px;
-      width: 100%;
-      justify-content: center;
-      max-width: 300px;
-      border-radius: 16px;
+    .hero-tagline {
+      order: 6;
+      text-align: center;
+      margin-top: 0;
+      font-size: 8px;
+      letter-spacing: 0.16em;
     }
 
-    /* ── Carousel — larger, no dots ── */
+    /* Button: pill, full-width, clean */
+    .btn-appstore {
+      padding: 14px 20px;
+      width: 100%;
+      max-width: 300px;
+      justify-content: center;
+      border-radius: 100px;
+    }
+    .btn-appstore-label { font-size: 14px; }
+
+    /* ── Carousel — larger, all same size, no dots ── */
     .carousel-wrap {
       width: 100%;
-      max-width: 360px;
-      height: 360px;
+      max-width: 340px;
+      height: 340px;
       margin: 0 auto;
     }
-    .carousel-main { width: 220px; }
-    .carousel-main.is-home { width: 238px; }
-    .carousel-bg-left { width: 160px; right: 0px; }
-    .carousel-bg-right { width: 160px; left: 0px; }
+    .carousel-main { width: 230px; }
+    .carousel-main.is-home { width: 230px; }
+    .carousel-bg-left { width: 168px; right: 2px; }
+    .carousel-bg-right { width: 168px; left: 2px; }
     .carousel-dots { display: none; }
 
     /* ── Features ── */
-    .features { padding: 44px 16px; }
+    .features { padding: 40px 16px; }
     .features-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
     .feature-card { padding: 18px 14px; border-radius: 14px; }
     .feature-title { font-size: 14px; margin-bottom: 7px; }
@@ -742,6 +766,7 @@
     .cta-h2 { font-size: clamp(30px, 9vw, 46px); margin-bottom: 16px; }
     .cta-sub { font-size: 14px; margin-bottom: 32px; }
     .cta-buttons { justify-content: center; }
+    .cta-buttons .btn-appstore { max-width: 300px; }
 
     /* ── Footer ── */
     footer {
@@ -756,21 +781,17 @@
 
     /* ── Modals ── */
     .modal-overlay { padding: 16px; align-items: flex-end; }
-    .modal-box {
-      padding: 28px 20px 24px;
-      border-radius: 20px 20px 16px 16px;
-      max-height: 88vh;
-    }
+    .modal-box { padding: 28px 20px 24px; border-radius: 20px 20px 16px 16px; max-height: 88vh; }
     .modal-box h2 { font-size: 20px; padding-right: 36px; }
     .modal-box h3 { font-size: 10px; margin-top: 20px; }
     .modal-box p { font-size: 13px; line-height: 1.75; }
     .modal-close { width: 30px; height: 30px; font-size: 13px; top: 14px; right: 14px; }
 
     @media (max-width: 390px) {
-      .carousel-bg-left, .carousel-bg-right { display: none; }
-      .carousel-main { width: 200px; }
-      .carousel-main.is-home { width: 215px; }
-      .hero-h1 { font-size: clamp(28px, 8.5vw, 38px); }
+      .hero-h1 { font-size: clamp(26px, 8vw, 34px); }
+      .carousel-main { width: 210px; }
+      .carousel-main.is-home { width: 210px; }
+      .carousel-bg-left, .carousel-bg-right { width: 150px; }
     }
   }
 
@@ -900,11 +921,6 @@
 </head>
 <body>
 
-<!-- TOP TAGLINE -->
-<div style="position:fixed; top:0; left:0; right:0; z-index:100; text-align:center; padding: 14px 20px; background: linear-gradient(180deg, rgba(10,6,18,0.92) 0%, rgba(10,6,18,0) 100%); backdrop-filter: blur(0px);">
-  <p style="font-size:9px; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.3);">Shadow Work &nbsp;·&nbsp; Self Discovery &nbsp;·&nbsp; Jungian Psychology</p>
-</div>
-
 <!-- HERO SECTION -->
 <section class="hero">
   <div class="bg-glow-hero"></div>
@@ -919,14 +935,12 @@
       <p class="hero-sub">A daily companion for shadow work and self-discovery. Uncover your archetype, integrate what you've been avoiding, and track the arc of your soul's growth.</p>
       <div class="hero-buttons">
         <a href="#" class="btn-store btn-appstore" onclick="showToast('Coming soon on the App Store! 🍎'); return false;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-          <div>
-            <span class="store-sub">Download on the</span>
-            <span class="store-name">App Store</span>
-          </div>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+          <span class="btn-appstore-label">Download on the App Store</span>
         </a>
       </div>
       <p class="hero-coming-soon">Coming soon — <a href="#" onclick="openModal('waitlist'); return false;">join the waitlist</a></p>
+      <p class="hero-tagline">Shadow Work &nbsp;·&nbsp; Self Discovery &nbsp;·&nbsp; Jungian Psychology</p>
     </div>
 
     <!-- RIGHT: SCREENSHOT CAROUSEL -->
