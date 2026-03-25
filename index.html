@@ -19,11 +19,11 @@
     --muted: rgba(196,181,253,0.5);
     --soft: rgba(167,139,250,0.15);
   }
-
+ 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
+ 
   html { scroll-behavior: smooth; }
-
+ 
   body {
     background: var(--bg);
     color: var(--text);
@@ -32,7 +32,7 @@
     min-height: 100vh;
     overflow-x: hidden;
   }
-
+ 
   /* ── NAV ── */
   nav {
     position: fixed;
@@ -46,7 +46,7 @@
     backdrop-filter: blur(20px);
     border-bottom: 1px solid rgba(124,58,237,0.1);
   }
-
+ 
   .nav-logo {
     font-family: 'Cinzel', serif;
     font-size: 18px;
@@ -57,13 +57,13 @@
     background-clip: text;
     cursor: pointer;
   }
-
+ 
   .nav-links {
     display: flex;
     gap: 32px;
     list-style: none;
   }
-
+ 
   .nav-links a {
     font-family: 'Cinzel', serif;
     font-size: 10px;
@@ -74,13 +74,13 @@
     transition: color 0.3s;
     cursor: pointer;
   }
-
+ 
   .nav-links a:hover { color: var(--glow1); }
-
+ 
   /* ── PAGES ── */
   .page { display: none; padding-top: 80px; min-height: 100vh; }
   .page.active { display: block; }
-
+ 
   /* ── AMBIENT BG ── */
   .orb {
     position: fixed;
@@ -99,7 +99,7 @@
     background: rgba(232,121,249,0.07);
     bottom: 100px; left: -100px;
   }
-
+ 
   /* ── HERO ── */
   .hero {
     position: relative;
@@ -107,12 +107,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: calc(100vh - 80px);
-    padding: 60px 24px;
+    justify-content: flex-start;
+    padding: 32px 24px 80px;
     text-align: center;
   }
-
+ 
   .hero-eyebrow {
     font-family: 'Cinzel', serif;
     font-size: 10px;
@@ -122,7 +121,7 @@
     margin-bottom: 24px;
     animation: fadeUp 1s ease both;
   }
-
+ 
   .hero-title {
     font-family: 'Cinzel', serif;
     font-size: clamp(48px, 9vw, 96px);
@@ -136,7 +135,7 @@
     margin-bottom: 12px;
     animation: fadeUp 1s 0.1s ease both;
   }
-
+ 
   .hero-sub {
     font-family: 'Lora', serif;
     font-style: italic;
@@ -145,7 +144,7 @@
     margin-bottom: 48px;
     animation: fadeUp 1s 0.2s ease both;
   }
-
+ 
   .hero-desc {
     max-width: 480px;
     font-size: 15px;
@@ -154,7 +153,7 @@
     margin-bottom: 52px;
     animation: fadeUp 1s 0.3s ease both;
   }
-
+ 
   .cta-group {
     display: flex;
     flex-direction: column;
@@ -162,7 +161,7 @@
     gap: 16px;
     animation: fadeUp 1s 0.4s ease both;
   }
-
+ 
   .btn-primary {
     display: inline-flex;
     align-items: center;
@@ -181,12 +180,12 @@
     transition: all 0.3s;
     cursor: pointer;
   }
-
+ 
   .btn-primary:hover {
     box-shadow: 0 0 60px rgba(124,58,237,0.5), 0 0 100px rgba(124,58,237,0.2);
     transform: translateY(-1px);
   }
-
+ 
   .app-store-badge {
     display: flex;
     align-items: center;
@@ -196,9 +195,9 @@
     font-family: 'Lora', serif;
     font-style: italic;
   }
-
+ 
   .app-store-badge svg { opacity: 0.5; }
-
+ 
   /* ── DIVIDER ── */
   .divider {
     width: 1px;
@@ -208,7 +207,7 @@
     position: relative;
     z-index: 1;
   }
-
+ 
   /* ── FEATURES ── */
   .features {
     position: relative;
@@ -217,7 +216,7 @@
     margin: 0 auto;
     padding: 0 24px 120px;
   }
-
+ 
   .section-label {
     font-family: 'Cinzel', serif;
     font-size: 10px;
@@ -227,7 +226,7 @@
     text-transform: uppercase;
     margin-bottom: 48px;
   }
-
+ 
   .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -237,20 +236,20 @@
     border-radius: 24px;
     overflow: hidden;
   }
-
+ 
   .feature-card {
     background: var(--bg2);
     padding: 36px 32px;
     transition: background 0.3s;
   }
-
+ 
   .feature-card:hover { background: rgba(124,58,237,0.05); }
-
+ 
   .feature-icon {
     font-size: 28px;
     margin-bottom: 16px;
   }
-
+ 
   .feature-title {
     font-family: 'Cinzel', serif;
     font-size: 13px;
@@ -258,7 +257,7 @@
     color: var(--text);
     margin-bottom: 10px;
   }
-
+ 
   .feature-desc {
     font-size: 13px;
     line-height: 1.7;
@@ -266,7 +265,7 @@
     font-family: 'Lora', serif;
     font-style: italic;
   }
-
+ 
   /* ── QUOTE STRIP ── */
   .quote-strip {
     position: relative;
@@ -276,7 +275,7 @@
     border-top: 1px solid rgba(124,58,237,0.1);
     border-bottom: 1px solid rgba(124,58,237,0.1);
   }
-
+ 
   .quote-text {
     font-family: 'Lora', serif;
     font-style: italic;
@@ -286,7 +285,7 @@
     margin: 0 auto 16px;
     line-height: 1.6;
   }
-
+ 
   .quote-attr {
     font-family: 'Cinzel', serif;
     font-size: 9px;
@@ -294,7 +293,7 @@
     color: rgba(124,58,237,0.5);
     text-transform: uppercase;
   }
-
+ 
   /* ── FOOTER ── */
   footer {
     position: relative;
@@ -307,7 +306,7 @@
     flex-wrap: wrap;
     gap: 16px;
   }
-
+ 
   .footer-logo {
     font-family: 'Cinzel', serif;
     font-size: 13px;
@@ -317,13 +316,13 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-
+ 
   .footer-links {
     display: flex;
     gap: 24px;
     list-style: none;
   }
-
+ 
   .footer-links a {
     font-family: 'Cinzel', serif;
     font-size: 9px;
@@ -334,16 +333,16 @@
     cursor: pointer;
     transition: color 0.3s;
   }
-
+ 
   .footer-links a:hover { color: var(--glow1); }
-
+ 
   .footer-copy {
     font-size: 11px;
     color: rgba(124,58,237,0.3);
     font-family: 'Lora', serif;
     font-style: italic;
   }
-
+ 
   /* ── INNER PAGES ── */
   .inner-page {
     position: relative;
@@ -352,7 +351,7 @@
     margin: 0 auto;
     padding: 80px 24px 120px;
   }
-
+ 
   .inner-title {
     font-family: 'Cinzel', serif;
     font-size: clamp(28px, 5vw, 42px);
@@ -363,7 +362,7 @@
     background-clip: text;
     margin-bottom: 8px;
   }
-
+ 
   .inner-updated {
     font-family: 'Lora', serif;
     font-style: italic;
@@ -372,7 +371,7 @@
     margin-bottom: 48px;
     opacity: 0.6;
   }
-
+ 
   .inner-page h2 {
     font-family: 'Cinzel', serif;
     font-size: 11px;
@@ -381,7 +380,7 @@
     text-transform: uppercase;
     margin: 40px 0 14px;
   }
-
+ 
   .inner-page p {
     font-size: 14px;
     line-height: 1.9;
@@ -389,12 +388,12 @@
     font-family: 'Lora', serif;
     margin-bottom: 16px;
   }
-
+ 
   .inner-page ul {
     list-style: none;
     margin-bottom: 16px;
   }
-
+ 
   .inner-page ul li {
     font-size: 14px;
     line-height: 1.9;
@@ -404,21 +403,21 @@
     position: relative;
     margin-bottom: 6px;
   }
-
+ 
   .inner-page ul li::before {
     content: '—';
     position: absolute;
     left: 0;
     color: rgba(124,58,237,0.4);
   }
-
+ 
   .inner-divider {
     width: 100%;
     height: 1px;
     background: rgba(124,58,237,0.15);
     margin: 40px 0;
   }
-
+ 
   /* ── CONTACT ── */
   .contact-card {
     background: var(--card);
@@ -427,7 +426,7 @@
     padding: 40px;
     margin-top: 40px;
   }
-
+ 
   .contact-card h3 {
     font-family: 'Cinzel', serif;
     font-size: 13px;
@@ -435,11 +434,11 @@
     color: var(--text);
     margin-bottom: 8px;
   }
-
+ 
   .contact-card p {
     margin-bottom: 24px;
   }
-
+ 
   .contact-email {
     display: inline-block;
     font-family: 'Cinzel', serif;
@@ -451,9 +450,9 @@
     padding-bottom: 2px;
     transition: border-color 0.3s;
   }
-
+ 
   .contact-email:hover { border-color: var(--glow1); }
-
+ 
   .response-time {
     font-family: 'Lora', serif;
     font-style: italic;
@@ -461,20 +460,20 @@
     color: rgba(124,58,237,0.5);
     margin-top: 16px !important;
   }
-
+ 
   /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
+ 
   @keyframes pulse {
     0%, 100% { opacity: 0.4; }
     50% { opacity: 0.8; }
   }
-
+ 
   .pulse { animation: pulse 3s ease-in-out infinite; }
-
+ 
   /* ── MOBILE ── */
   @media (max-width: 600px) {
     nav { padding: 16px 20px; }
@@ -486,11 +485,11 @@
 </style>
 </head>
 <body>
-
+ 
 <!-- Ambient orbs -->
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
-
+ 
 <!-- NAV -->
 <nav>
   <div class="nav-logo" onclick="showPage('home')">Soul Arc</div>
@@ -501,10 +500,10 @@
     <li><a onclick="showPage('support')">Support</a></li>
   </ul>
 </nav>
-
+ 
 <!-- ══════════════════════════════ HOME ══════════════════════════════ -->
 <div id="page-home" class="page active">
-
+ 
   <section class="hero">
     <p class="hero-eyebrow">Shadow Work · Self Discovery · Jungian Psychology</p>
     <h1 class="hero-title">Soul Arc</h1>
@@ -525,9 +524,9 @@
       </span>
     </div>
   </section>
-
+ 
   <div class="divider"></div>
-
+ 
   <section class="features">
     <p class="section-label">What awaits you</p>
     <div class="features-grid">
@@ -563,12 +562,12 @@
       </div>
     </div>
   </section>
-
+ 
   <div class="quote-strip">
     <p class="quote-text">"Until you make the unconscious conscious, it will direct your life and you will call it fate."</p>
     <p class="quote-attr">— Carl Gustav Jung</p>
   </div>
-
+ 
   <footer>
     <div class="footer-logo">Soul Arc</div>
     <ul class="footer-links">
@@ -579,17 +578,17 @@
     <p class="footer-copy">© 2026 Soul Arc. All rights reserved.</p>
   </footer>
 </div>
-
+ 
 <!-- ══════════════════════════════ PRIVACY ══════════════════════════════ -->
 <div id="page-privacy" class="page">
   <div class="inner-page">
     <h1 class="inner-title">Privacy Policy</h1>
     <p class="inner-updated">Last updated: January 1, 2026</p>
-
+ 
     <p>Soul Arc is built on a simple principle: your inner world is yours. We collect as little as possible and keep what we do collect on your device.</p>
-
+ 
     <div class="inner-divider"></div>
-
+ 
     <h2>What We Collect</h2>
     <p>Soul Arc stores all of your data locally on your device using Apple's SwiftData framework. This includes:</p>
     <ul>
@@ -600,10 +599,10 @@
       <li>Quest completion history</li>
     </ul>
     <p>None of this data is transmitted to our servers. We do not have access to your journal entries or personal reflections.</p>
-
+ 
     <h2>Subscription Data</h2>
     <p>Soul Arc uses RevenueCat to manage in-app subscriptions. RevenueCat may collect your Apple ID, device identifiers, and purchase history to process and verify your subscription. RevenueCat's privacy policy governs that data. We do not receive or store your payment information.</p>
-
+ 
     <h2>What We Don't Collect</h2>
     <ul>
       <li>We do not use analytics SDKs or tracking tools</li>
@@ -611,20 +610,20 @@
       <li>We do not sell, share, or transmit your personal data to third parties</li>
       <li>We do not use advertising networks or track you across other apps</li>
     </ul>
-
+ 
     <h2>Data Deletion</h2>
     <p>Since all data is stored locally on your device, you can delete all Soul Arc data at any time by deleting the app from your iPhone. This permanently removes all journal entries, progress, and profile data.</p>
-
+ 
     <h2>Children's Privacy</h2>
     <p>Soul Arc is intended for users 18 and older. We do not knowingly collect personal information from anyone under the age of 13.</p>
-
+ 
     <h2>Changes to This Policy</h2>
     <p>We may update this privacy policy from time to time. Any changes will be posted on this page with an updated date. Continued use of Soul Arc after changes constitutes acceptance of the updated policy.</p>
-
+ 
     <h2>Contact</h2>
-    <p>Questions about privacy? Reach us at <a href="mailto:support@soularc.app" class="contact-email">support@soularc.app</a></p>
+    <p>Questions about privacy? Reach us at <a href="/cdn-cgi/l/email-protection#3b484e4b4b54494f7b48544e575a4958155a4b4b" class="contact-email"><span class="__cf_email__" data-cfemail="41323431312e333501322e342d2033226f203131">[email&#160;protected]</span></a></p>
   </div>
-
+ 
   <footer>
     <div class="footer-logo">Soul Arc</div>
     <ul class="footer-links">
@@ -635,24 +634,24 @@
     <p class="footer-copy">© 2026 Soul Arc. All rights reserved.</p>
   </footer>
 </div>
-
+ 
 <!-- ══════════════════════════════ TERMS ══════════════════════════════ -->
 <div id="page-terms" class="page">
   <div class="inner-page">
     <h1 class="inner-title">Terms of Use</h1>
     <p class="inner-updated">Last updated: January 1, 2026</p>
-
+ 
     <p>By downloading or using Soul Arc, you agree to these terms. Please read them — they're written like a human wrote them.</p>
-
+ 
     <div class="inner-divider"></div>
-
+ 
     <h2>Using the App</h2>
     <p>Soul Arc is a personal development and journaling tool. You may use it for your own personal, non-commercial purposes. You may not reverse engineer, copy, or distribute any part of the app.</p>
-
+ 
     <h2>Not a Substitute for Professional Care</h2>
     <p>Soul Arc is a self-reflection and journaling tool inspired by Jungian psychology. It is not a mental health treatment, therapy, or clinical service. The app does not provide medical advice, psychological diagnosis, or crisis intervention.</p>
     <p>If you are experiencing a mental health crisis, please contact a qualified mental health professional or a crisis service such as the 988 Suicide & Crisis Lifeline (call or text 988 in the US).</p>
-
+ 
     <h2>Subscriptions</h2>
     <p>Soul Arc offers auto-renewable subscriptions through the App Store:</p>
     <ul>
@@ -660,29 +659,29 @@
       <li>Annual subscription — billed once per year</li>
     </ul>
     <p>Payment is charged to your Apple ID account at confirmation of purchase. Your subscription automatically renews unless auto-renew is turned off at least 24 hours before the end of the current period. You can manage or cancel your subscription in your Apple ID account settings at any time.</p>
-
+ 
     <h2>Your Content</h2>
     <p>Your journal entries, reflections, and personal data belong to you. They are stored locally on your device and are never accessed by us. You are responsible for maintaining your own backups if desired.</p>
-
+ 
     <h2>Acceptable Use</h2>
     <p>You agree not to use Soul Arc in any way that is unlawful, harmful, or disruptive. The app is designed for genuine self-reflection — use it with that intention.</p>
-
+ 
     <h2>Intellectual Property</h2>
     <p>All content within Soul Arc — including Umbra, the Soul Arc name, archetype system, visual design, and copy — is owned by Soul Arc and protected by applicable intellectual property laws.</p>
-
+ 
     <h2>Disclaimer of Warranties</h2>
     <p>Soul Arc is provided "as is" without warranty of any kind. We do not guarantee the app will be error-free or uninterrupted, though we work hard to make it as reliable as possible.</p>
-
+ 
     <h2>Limitation of Liability</h2>
     <p>To the extent permitted by law, Soul Arc shall not be liable for any indirect, incidental, or consequential damages arising from your use of the app.</p>
-
+ 
     <h2>Changes to These Terms</h2>
     <p>We may update these terms from time to time. Continued use of the app after changes constitutes your agreement to the new terms.</p>
-
+ 
     <h2>Contact</h2>
-    <p>Questions? <a href="mailto:support@soularc.app" class="contact-email">support@soularc.app</a></p>
+    <p>Questions? <a href="/cdn-cgi/l/email-protection#d3a0a6a3a3bca1a793a0bca6bfb2a1b0fdb2a3a3" class="contact-email"><span class="__cf_email__" data-cfemail="6e1d1b1e1e011c1a2e1d011b020f1c0d400f1e1e">[email&#160;protected]</span></a></p>
   </div>
-
+ 
   <footer>
     <div class="footer-logo">Soul Arc</div>
     <ul class="footer-links">
@@ -693,46 +692,46 @@
     <p class="footer-copy">© 2026 Soul Arc. All rights reserved.</p>
   </footer>
 </div>
-
+ 
 <!-- ══════════════════════════════ SUPPORT ══════════════════════════════ -->
 <div id="page-support" class="page">
   <div class="inner-page">
     <h1 class="inner-title">Support</h1>
     <p class="inner-updated">We're here when you need us.</p>
-
+ 
     <p>Soul Arc is built by a small team. We read every message and respond as fast as we can — usually within 1–2 business days.</p>
-
+ 
     <div class="contact-card">
       <h3>Get in Touch</h3>
       <p>For bug reports, subscription issues, or anything else:</p>
-      <a href="mailto:support@soularc.app" class="contact-email">support@soularc.app</a>
+      <a href="/cdn-cgi/l/email-protection#cab9bfbabaa5b8be8ab9a5bfa6abb8a9e4abbaba" class="contact-email"><span class="__cf_email__" data-cfemail="3645434646594442764559435a57445518574646">[email&#160;protected]</span></a>
       <p class="response-time">Typical response time: 1–2 business days</p>
     </div>
-
+ 
     <div class="inner-divider"></div>
-
+ 
     <h2>Common Questions</h2>
-
+ 
     <h2>How do I cancel my subscription?</h2>
     <p>Go to iPhone Settings → Apple ID → Subscriptions → Soul Arc → Cancel Subscription. You'll retain access until the end of your current billing period.</p>
-
+ 
     <h2>How do I restore my purchase?</h2>
     <p>Open Soul Arc → tap the paywall → tap "Restore Purchases" at the bottom. Make sure you're signed in with the same Apple ID used to purchase.</p>
-
+ 
     <h2>Where is my data stored?</h2>
     <p>All your journal entries, archetype results, and progress are stored locally on your iPhone. We never see or access your personal reflections.</p>
-
+ 
     <h2>Can I transfer my data to a new phone?</h2>
     <p>Yes — if you restore your new iPhone from an iCloud or local backup, Soul Arc data transfers automatically. Fresh installs will start from scratch.</p>
-
+ 
     <h2>I found a bug. What should I do?</h2>
-    <p>Email us at <a href="mailto:support@soularc.app" class="contact-email">support@soularc.app</a> with a description of what happened, your iPhone model, and iOS version. Screenshots help a lot.</p>
-
+    <p>Email us at <a href="/cdn-cgi/l/email-protection#7d0e080d0d120f093d0e1208111c0f1e531c0d0d" class="contact-email"><span class="__cf_email__" data-cfemail="04777174746b767044776b71686576672a657474">[email&#160;protected]</span></a> with a description of what happened, your iPhone model, and iOS version. Screenshots help a lot.</p>
+ 
     <h2>The app isn't working after an update.</h2>
     <p>Try force-closing the app and reopening it. If that doesn't help, delete and reinstall — your subscription will restore and your local data may be recoverable from a backup. Email us if you need help.</p>
-
+ 
     <div class="inner-divider"></div>
-
+ 
     <h2>Mental Health Resources</h2>
     <p>Soul Arc is a self-reflection tool, not a clinical service. If you're going through something difficult, please reach out to a professional:</p>
     <ul>
@@ -741,24 +740,8 @@
       <li>International Association for Suicide Prevention — iasp.info/resources/Crisis_Centres</li>
     </ul>
   </div>
-
+ 
   <footer>
     <div class="footer-logo">Soul Arc</div>
     <ul class="footer-links">
-      <li><a onclick="showPage('home')">Home</a></li>
-      <li><a onclick="showPage('privacy')">Privacy Policy</a></li>
-      <li><a onclick="showPage('terms')">Terms of Use</a></li>
-    </ul>
-    <p class="footer-copy">© 2026 Soul Arc. All rights reserved.</p>
-  </footer>
-</div>
-
-<script>
-  function showPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + id).classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-</script>
-</body>
-</html>
+      <li><a
