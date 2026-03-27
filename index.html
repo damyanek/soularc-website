@@ -1270,18 +1270,18 @@
 
 <!-- WAITLIST -->
 <div class="modal-overlay" id="modal-waitlist" onclick="if(event.target===this) closeModal('waitlist')">
-  <div class="modal-box" style="text-align:center; padding: 52px 40px 44px;">
+  <div class="modal-box" style="text-align:center; padding: 48px 32px 40px;">
     <button class="modal-close" onclick="closeModal('waitlist')" aria-label="Close">✕</button>
     <div style="font-size:44px; margin-bottom:16px; line-height:1;">🌑</div>
     <h2 style="padding-right:0; margin-bottom:8px;">Join the Waitlist</h2>
-    <p style="margin-bottom:32px; color:rgba(255,255,255,0.5); font-size:14px;">Be first to know when Soul Arc launches on the App Store.</p>
-    <div style="display:flex; gap:10px; max-width:380px; margin:0 auto 14px;">
+    <p style="margin-bottom:28px; color:rgba(255,255,255,0.5); font-size:14px; line-height:1.5;">Be first to know when Soul Arc launches on the App Store.</p>
+    <div style="display:flex; flex-direction:column; gap:12px; max-width:340px; margin:0 auto 16px;">
       <input id="waitlist-email" type="email" placeholder="your@email.com"
-        style="flex:1; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:12px; padding:12px 16px; color:#fff; font-family:inherit; font-size:14px; outline:none; transition: border-color 0.2s;"
-        onfocus="this.style.borderColor='rgba(167,139,250,0.5)'"
+        style="width:100%; box-sizing:border-box; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); border-radius:14px; padding:14px 18px; color:#fff; font-family:inherit; font-size:15px; outline:none; transition: border-color 0.2s;"
+        onfocus="this.style.borderColor='rgba(167,139,250,0.6)'"
         onblur="this.style.borderColor='rgba(255,255,255,0.12)'">
       <button onclick="submitWaitlist()"
-        style="background:linear-gradient(135deg,#7c3aed,#5b21b6); color:#fff; border:none; border-radius:12px; padding:12px 20px; font-family:inherit; font-size:14px; font-weight:600; cursor:pointer; white-space:nowrap; transition: opacity 0.2s;"
+        style="width:100%; background:linear-gradient(135deg,#7c3aed,#5b21b6); color:#fff; border:none; border-radius:14px; padding:15px; font-family:inherit; font-size:15px; font-weight:600; cursor:pointer; letter-spacing:0.01em; transition: opacity 0.2s; box-shadow: 0 4px 20px rgba(124,58,237,0.4);"
         onmouseover="this.style.opacity='0.85'" onmouseout="this.style.opacity='1'">
         Notify Me
       </button>
@@ -1405,8 +1405,22 @@ function submitWaitlist() {
     showToast('Please enter a valid email.');
     return;
   }
-  closeModal('waitlist');
-  showToast("You're on the list -- we'll be in touch");
+  // Submit to Formspree
+  fetch('https://formspree.io/f/mzdkdzlj', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({ email: email })
+  }).then(function(res) {
+    if (res.ok) {
+      closeModal('waitlist');
+      showToast("You're on the list — we'll be in touch 🌑");
+      if (el) el.value = '';
+    } else {
+      showToast('Something went wrong. Try again.');
+    }
+  }).catch(function() {
+    showToast('Something went wrong. Try again.');
+  });
 }
 
 //
