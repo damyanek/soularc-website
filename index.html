@@ -1406,6 +1406,20 @@ function submitWaitlist() {
     showToast('Please enter a valid email.');
     return;
   }
+
+  // Rate limit: max 3 submissions per hour
+  var now = Date.now();
+  var hour = 60 * 60 * 1000;
+  var key = 'wl_submissions';
+  var submissions = JSON.parse(localStorage.getItem(key) || '[]');
+  submissions = submissions.filter(function(t) { return now - t < hour; });
+  if (submissions.length >= 3) {
+    showToast('Too many attempts. Please try again later.');
+    return;
+  }
+  submissions.push(now);
+  localStorage.setItem(key, JSON.stringify(submissions));
+
   // Submit to Formspree
   fetch('https://formspree.io/f/mzdkdzlj', {
     method: 'POST',
