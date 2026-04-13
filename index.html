@@ -61,8 +61,6 @@
     position: relative;
   }
 
-  /* Seamless top — fills the area above the viewport with the same bg */
-  /* ─── NOISE TEXTURE OVERLAY ─── */
   body::before {
     content: '';
     position: fixed;
@@ -74,7 +72,6 @@
     opacity: 0.5;
   }
 
-  /* ─── RADIAL BACKGROUND GLOWS ─── */
   .bg-glow-hero {
     position: fixed;
     top: -100px;
@@ -96,7 +93,6 @@
     z-index: 0;
   }
 
-  /* ─── STARS BACKGROUND ─── */
   .stars {
     position: fixed;
     inset: 0;
@@ -116,7 +112,7 @@
     0%, 100% { opacity: 0.1; transform: scale(1); }
     50% { opacity: 0.7; transform: scale(1.3); }
   }
-  /* ─── SECTION LABELS ─── */
+
   .section-label {
     font-family: var(--font-body);
     font-size: 10px;
@@ -128,7 +124,6 @@
     margin-bottom: 40px;
   }
 
-  /* ─── NAV ─── */
   nav {
     position: relative;
     z-index: 10;
@@ -147,7 +142,6 @@
     text-decoration: none;
   }
 
-  /* ─── HERO ─── */
   .hero {
     position: relative;
     min-height: auto;
@@ -256,7 +250,6 @@
     margin-top: 20px;
   }
 
-  /* ─── HERO RIGHT: SCREENSHOT CAROUSEL ─── */
   .hero-visual {
     position: relative;
     display: flex;
@@ -273,7 +266,6 @@
     justify-content: center;
   }
 
-  /* Fanned background screens */
   .carousel-bg-left,
   .carousel-bg-right {
     position: absolute;
@@ -305,7 +297,6 @@
     transition: opacity 0.4s ease;
   }
 
-  /* Main front screen */
   .carousel-main {
     position: relative;
     z-index: 3;
@@ -315,7 +306,6 @@
             drop-shadow(0 0 60px rgba(109,40,217,0.35));
   }
 
-  /* Each slide stacked — crossfade */
   .carousel-slide {
     position: absolute;
     inset: 0;
@@ -337,7 +327,6 @@
     object-fit: contain;
   }
 
-  /* Progress dots */
   .carousel-dots {
     position: absolute;
     bottom: -22px;
@@ -446,7 +435,6 @@
     line-height: 1.65;
   }
 
-  /* ─── QUOTE ─── */
   .quote-section {
     position: relative;
     z-index: 2;
@@ -472,7 +460,6 @@
   }
   .quote-author::before { content: '— '; }
 
-  /* divider */
   .divider {
     width: 100%;
     height: 1px;
@@ -481,7 +468,6 @@
     max-width: 1200px;
   }
 
-  /* ─── HOW IT FEELS ─── */
   .how-section {
     position: relative;
     z-index: 2;
@@ -497,7 +483,6 @@
     margin-bottom: 80px;
   }
 
-  /* Journey path */
   .journey {
     position: relative;
     padding: 40px 0 60px;
@@ -549,7 +534,6 @@
     line-height: 1.4;
   }
 
-  /* planet decorations */
   .planet-1, .planet-2, .planet-3 {
     position: absolute;
     border-radius: 50%;
@@ -583,7 +567,6 @@
     box-shadow: 0 0 10px rgba(167,139,250,0.5);
   }
 
-  /* ─── CTA ─── */
   .cta-section {
     position: relative;
     z-index: 2;
@@ -630,7 +613,6 @@
     opacity: 0.9;
   }
 
-  /* ─── FOOTER ─── */
   footer {
     position: relative;
     z-index: 5;
@@ -675,7 +657,6 @@
   .footer-links a:hover { color: var(--white-70); }
   .footer-links a:hover::after { width: 100%; }
 
-  /* ─── SPARKLE ─── */
   .sparkle {
     position: absolute;
     bottom: 40px;
@@ -685,7 +666,6 @@
     opacity: 0.5;
   }
 
-  /* fade-in on scroll */
   .fade-up {
     opacity: 0;
     transform: translateY(22px);
@@ -695,14 +675,12 @@
     opacity: 1;
     transform: translateY(0);
   }
-  /* Footer always visible */
   footer .fade-up {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
   }
 
-  /* stagger for feature cards */
   .feature-card:nth-child(1) { transition-delay: 0s; }
   .feature-card:nth-child(2) { transition-delay: 0.08s; }
   .feature-card:nth-child(3) { transition-delay: 0.16s; }
@@ -711,14 +689,10 @@
   .feature-card:nth-child(6) { transition-delay: 0.2s; }
 
   @media (max-width: 768px) {
-
-    /* ── Global ── */
     nav, .features, .how-section, .cta-section, footer {
       padding-left: 20px;
       padding-right: 20px;
     }
-
-    /* ── Hero: everything visible on first screen ── */
     .hero { min-height: 100svh; align-items: flex-start; }
     .hero-inner {
       display: flex;
@@ -728,10 +702,7 @@
       padding: 20px 20px 16px;
       width: 100%;
     }
-
-    /* Order: H1 → carousel → sub → button → coming soon → tagline */
     .hero-left { display: contents; }
-
     .hero-h1 {
       order: 1;
       font-size: clamp(48px, 14vw, 72px);
@@ -772,8 +743,6 @@
       font-size: 8px;
       letter-spacing: 0.16em;
     }
-
-    /* Button: pill, full-width, clean */
     .btn-appstore {
       padding: 14px 20px;
       width: 100%;
@@ -782,8 +751,6 @@
       border-radius: 100px;
     }
     .btn-appstore-label { font-size: 14px; }
-
-    /* ── Carousel — larger, all same size, no dots ── */
     .carousel-wrap {
       width: 100%;
       max-width: 340px;
@@ -797,32 +764,22 @@
     .carousel-main { width: 100%; max-width: 220px; }
     .carousel-slide img { height: 320px; width: auto; }
     .carousel-dots { display: none; }
-
-    /* ── Features ── */
     .features { padding: 40px 16px; }
     .features-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
     .feature-card { padding: 18px 14px; border-radius: 14px; }
     .feature-title { font-size: 14px; margin-bottom: 7px; }
     .feature-desc { font-size: 12px; line-height: 1.55; }
     .feature-icon { width: 34px; height: 34px; font-size: 15px; margin-bottom: 12px; border-radius: 10px; }
-
-    /* ── Quote ── */
     .quote-inner { padding: 44px 24px !important; }
-
-    /* ── How it feels ── */
     .how-section { padding: 44px 20px 32px; overflow-x: hidden; }
     .how-subtitle { font-size: 13px; margin-bottom: 32px; }
     .journey { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 16px; }
     .journey svg { min-width: 680px; }
-
-    /* ── CTA ── */
     .cta-section { padding: 52px 20px 60px; }
     .cta-h2 { font-size: clamp(30px, 9vw, 46px); margin-bottom: 16px; }
     .cta-sub { font-size: 14px; margin-bottom: 32px; }
     .cta-buttons { justify-content: center; }
     .cta-buttons .btn-appstore { max-width: 300px; }
-
-    /* ── Footer ── */
     footer {
       flex-direction: column;
       gap: 18px;
@@ -832,8 +789,6 @@
     .footer-links { gap: 24px; flex-wrap: wrap; justify-content: center; }
     .footer-links a { font-size: 14px; padding: 4px 0; }
     .sparkle { position: static; opacity: 0.3; width: 20px; height: 20px; }
-
-    /* ── Modals ── */
     .modal-overlay { padding: 16px; align-items: flex-end; }
     .modal-box { padding: 28px 20px 24px; border-radius: 20px 20px 16px 16px; max-height: 88vh; }
     .modal-box h2 { font-size: 20px; padding-right: 36px; }
@@ -852,7 +807,6 @@
     }
   }
 
-  /* ─── MODALS ─── */
   .modal-overlay {
     display: flex;
     position: fixed;
@@ -868,7 +822,6 @@
     visibility: hidden;
     pointer-events: none;
     transition: opacity 0.25s ease, visibility 0.25s ease;
-    /* Prevent iOS scroll-position bugs */
     -webkit-overflow-scrolling: touch;
     will-change: opacity;
   }
@@ -956,7 +909,6 @@
     color: var(--white);
   }
 
-  /* ─── TOAST ─── */
   .toast {
     position: fixed;
     bottom: 40px;
@@ -990,9 +942,7 @@
   <div class="stars" id="stars"></div>
 
   <div class="hero-inner">
-    <!-- LEFT -->
     <div class="hero-left fade-up">
-
       <h1 class="hero-h1">Soul Arc</h1>
       <p class="hero-sub">A daily companion for shadow work and self-discovery. Uncover your archetype, integrate what you've been avoiding, and track the arc of your soul's growth.</p>
       <div class="hero-buttons">
@@ -1005,23 +955,19 @@
       <p class="hero-tagline">Shadow Work &nbsp;·&nbsp; Self Discovery &nbsp;·&nbsp; Jungian Psychology</p>
     </div>
 
-    <!-- RIGHT: SCREENSHOT CAROUSEL -->
     <div class="hero-visual fade-up" style="transition-delay:0.15s">
       <div class="carousel-wrap">
-        <!-- Fanned background screens -->
         <div class="carousel-bg-left" id="carouselBgLeft">
           <img src="soul-arc-img-2.webp" alt="Soul Arc screen" />
         </div>
         <div class="carousel-bg-right" id="carouselBgRight">
           <img src="soul-arc-img-1.webp" alt="Soul Arc screen" />
         </div>
-        <!-- Main front screen — crossfade -->
         <div class="carousel-main" id="carouselMain">
           <div class="carousel-slide active" id="slide-0"><img src="soul-arc-img-3.webp" alt="Soul Arc waving skeleton" fetchpriority="high" loading="eager" /></div>
           <div class="carousel-slide" id="slide-1"><img src="soul-arc-img-2.webp" alt="Soul Arc home" /></div>
           <div class="carousel-slide" id="slide-2"><img src="soul-arc-img-1.webp" alt="Soul Arc archetype" /></div>
         </div>
-        <!-- Pill dots -->
         <div class="carousel-dots">
           <button class="cdot active" onclick="setSlide(0)"></button>
           <button class="cdot" onclick="setSlide(1)"></button>
@@ -1030,7 +976,6 @@
       </div>
     </div>
   </div>
-
 </section>
 
 <!-- QUOTE SECTION -->
@@ -1047,43 +992,36 @@
 <section style="position:relative; z-index:2; background: linear-gradient(180deg, transparent 0%, rgba(109,40,217,0.03) 50%, transparent 100%);">
   <div class="features">
     <div class="features-grid">
-
       <div class="feature-card fade-up">
         <div class="feature-icon">🔮</div>
         <h3 class="feature-title">Your Archetype</h3>
         <p class="feature-desc">A 12-archetype system rooted in Jungian psychology reveals the unconscious patterns driving your life.</p>
       </div>
-
       <div class="feature-card fade-up">
         <div class="feature-icon">🌑</div>
         <h3 class="feature-title">Shadow Work</h3>
         <p class="feature-desc">Daily prompts that go where most apps won't. Confronting what you've buried is where growth actually lives.</p>
       </div>
-
       <div class="feature-card fade-up">
         <div class="feature-icon">✍️</div>
         <h3 class="feature-title">Guided Journaling</h3>
         <p class="feature-desc">Free write, log triggers, and check in with your emotional state. Every entry builds your shadow map.</p>
       </div>
-
       <div class="feature-card fade-up">
         <div class="feature-icon">🪐</div>
         <h3 class="feature-title">Soul Journey</h3>
         <p class="feature-desc">Gamified progression through 16 planes of inner work. XP, streaks, and a coalition companion named Umbra.</p>
       </div>
-
       <div class="feature-card fade-up">
         <div class="feature-icon">📋</div>
         <h3 class="feature-title">Daily Quests</h3>
         <p class="feature-desc">Practices, prompts, and reflections tailored to your archetype — not generic. Exactly what you need.</p>
       </div>
-
       <div class="feature-card fade-up">
         <div class="feature-icon">📈</div>
         <h3 class="feature-title">Soul Analytics</h3>
         <p class="feature-desc">See your patterns over time. Your shadow has a shape — and it becomes visible when you start looking.</p>
       </div>
-
     </div>
   </div>
 </section>
@@ -1094,17 +1032,12 @@
 <div style="position:relative; z-index:2;">
   <div class="how-section">
     <p class="how-subtitle fade-up">A cinematic experience with sleek step flow and premium visuals.</p>
-
     <div class="journey" style="position:relative;">
-      <!-- Decorative planets -->
       <div class="planet-1"></div>
       <div class="planet-2"></div>
       <div class="planet-3"></div>
-
-      <!-- Journey path SVG -->
       <svg viewBox="0 0 1000 240" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; display:block; position:relative; z-index:1;">
-        <!-- Glowing path curve -->
-        <path d="M 80 180 C 200 180, 250 80, 340 80 C 430 80, 470 160, 560 160 C 650 160, 700 60, 790 60 C 880 60, 920 100, 940 120" 
+        <path d="M 80 180 C 200 180, 250 80, 340 80 C 430 80, 470 160, 560 160 C 650 160, 700 60, 790 60 C 880 60, 920 100, 940 120"
               stroke="url(#pathGrad)" stroke-width="2" stroke-dasharray="6 4" fill="none" opacity="0.7"/>
         <defs>
           <linearGradient id="pathGrad" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -1117,43 +1050,31 @@
             <stop offset="100%" stop-color="rgba(109,40,217,0)"/>
           </radialGradient>
         </defs>
-
-        <!-- Step 1: Discover your archetype -->
         <circle cx="80" cy="180" r="8" fill="#a78bfa" filter="url(#glow)"/>
         <circle cx="80" cy="180" r="16" fill="rgba(167,139,250,0.15)"/>
         <text x="80" y="215" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11" font-family="DM Sans, sans-serif">Discover your</text>
         <text x="80" y="228" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11" font-family="DM Sans, sans-serif">archetype</text>
-        <!-- icon -->
         <text x="80" y="165" text-anchor="middle" font-size="14">🔮</text>
-
-        <!-- Step 2: Face your shadow -->
         <circle cx="330" cy="80" r="8" fill="#a78bfa"/>
         <circle cx="330" cy="80" r="16" fill="rgba(167,139,250,0.15)"/>
         <text x="330" y="115" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11" font-family="DM Sans, sans-serif">Face your shadow</text>
         <text x="330" y="128" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11" font-family="DM Sans, sans-serif">through prompts</text>
         <text x="330" y="65" text-anchor="middle" font-size="14">🌑</text>
-
-        <!-- Step 3: Journal emotions -->
         <circle cx="555" cy="158" r="8" fill="#a78bfa"/>
         <circle cx="555" cy="158" r="16" fill="rgba(167,139,250,0.15)"/>
         <text x="555" y="190" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11" font-family="DM Sans, sans-serif">Journal your emotions</text>
         <text x="555" y="203" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11" font-family="DM Sans, sans-serif">and triggers</text>
         <text x="555" y="143" text-anchor="middle" font-size="14">✍️</text>
-
-        <!-- Step 4: Soul journey -->
         <circle cx="755" cy="62" r="8" fill="#a78bfa"/>
         <circle cx="755" cy="62" r="16" fill="rgba(167,139,250,0.15)"/>
         <text x="755" y="97" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11" font-family="DM Sans, sans-serif">Progress through</text>
         <text x="755" y="110" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11" font-family="DM Sans, sans-serif">your soul journey</text>
         <text x="755" y="47" text-anchor="middle" font-size="14">🪐</text>
-
-        <!-- Step 5: See patterns -->
         <circle cx="940" cy="118" r="8" fill="#a78bfa"/>
         <circle cx="940" cy="118" r="16" fill="rgba(167,139,250,0.15)"/>
         <text x="940" y="150" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11" font-family="DM Sans, sans-serif">See your patterns</text>
         <text x="940" y="163" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-size="11" font-family="DM Sans, sans-serif">with analytics</text>
         <text x="940" y="103" text-anchor="middle" font-size="14">📈</text>
-
         <defs>
           <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
             <feGaussianBlur stdDeviation="3" result="blur"/>
@@ -1186,8 +1107,8 @@
 <footer style="opacity:1 !important;">
   <div class="footer-logo">Soul Arc</div>
   <div class="footer-links">
-    <a href="#" onclick="openModal('privacy'); return false;">Privacy Policy</a>
-    <a href="#" onclick="openModal('terms'); return false;">Terms of Use</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms of Use</a>
     <a href="#" onclick="openModal('support'); return false;">Support</a>
   </div>
   <svg class="sparkle" viewBox="0 0 32 32" fill="none">
@@ -1195,81 +1116,25 @@
   </svg>
 </footer>
 
-<!-- ─── MODALS ─── -->
-
-<!-- PRIVACY POLICY -->
-<div class="modal-overlay" id="modal-privacy" onclick="if(event.target===this) closeModal('privacy')">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('privacy')" aria-label="Close">✕</button>
-    <h2>Privacy Policy</h2>
-    <span class="modal-date">Last updated: January 2025</span>
-    <div class="modal-divider"></div>
-
-    <h3>Information We Collect</h3>
-    <p>Soul Arc collects information you provide directly — your name, email address, and content you create within the app including journal entries, archetype responses, and progress data. We collect this to provide and improve our services.</p>
-
-    <h3>How We Use Your Information</h3>
-    <p>Your data is used solely to operate Soul Arc. Journal entries and shadow work content are private and never shared with third parties or used for advertising. We use aggregated, anonymized data only to improve app features.</p>
-
-    <h3>Data Storage & Security</h3>
-    <p>Your personal data is encrypted in transit and at rest using industry-standard security measures. You may request deletion of your account and all associated data at any time by contacting us at <a href="mailto:help@soularc.app" style="color:var(--purple-light);text-decoration:underline;">help@soularc.app</a>.</p>
-
-    <h3>Third-Party Services</h3>
-    <p>Soul Arc uses RevenueCat for subscription management and Apple for in-app purchases. These services operate under their own privacy policies. We do not sell your personal information to any third party — ever.</p>
-
-    <h3>Contact</h3>
-    <p>For privacy-related questions, reach us at <a href="mailto:help@soularc.app" style="color:var(--purple-light);text-decoration:underline;">help@soularc.app</a>.</p>
-  </div>
-</div>
-
-<!-- TERMS OF USE -->
-<div class="modal-overlay" id="modal-terms" onclick="if(event.target===this) closeModal('terms')">
-  <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('terms')" aria-label="Close">✕</button>
-    <h2>Terms of Use</h2>
-    <span class="modal-date">Last updated: January 2025</span>
-    <div class="modal-divider"></div>
-
-    <h3>Acceptance of Terms</h3>
-    <p>By downloading or using Soul Arc, you agree to these Terms of Use. If you do not agree, please do not use the app. These terms apply to all users of the Soul Arc iOS application.</p>
-
-    <h3>Use of the App</h3>
-    <p>Soul Arc is intended for personal self-development and reflection. You agree not to misuse the platform, attempt to reverse-engineer the application, or use it in any way that violates applicable laws or regulations.</p>
-
-    <h3>Subscriptions & Billing</h3>
-    <p>Soul Arc offers monthly ($9.99/mo) and annual ($69.99/yr) subscriptions. Subscriptions automatically renew unless cancelled at least 24 hours before the end of the current billing period. Manage or cancel your subscription through your Apple ID account settings.</p>
-
-    <h3>Your Content</h3>
-    <p>Content you create within Soul Arc — journal entries, reflections, and responses — remains yours. You grant Soul Arc a limited license to store and display your content within the app for your personal use only.</p>
-
-    <h3>Disclaimer</h3>
-    <p>Soul Arc is a self-development tool and is not a substitute for professional mental health care. If you are experiencing a mental health crisis, please contact a licensed professional or emergency services immediately.</p>
-  </div>
-</div>
-
-<!-- SUPPORT -->
+<!-- SUPPORT MODAL -->
 <div class="modal-overlay" id="modal-support" onclick="if(event.target===this) closeModal('support')">
   <div class="modal-box">
     <button class="modal-close" onclick="closeModal('support')" aria-label="Close">✕</button>
     <h2>Support</h2>
     <span class="modal-date">We typically respond within 24 hours</span>
     <div class="modal-divider"></div>
-
     <h3>📧 Email Us</h3>
     <p><a href="mailto:help@soularc.app" style="color:var(--purple-light);text-decoration:underline;">help@soularc.app</a></p>
-
     <h3>🐛 Report a Bug</h3>
     <p>Found something broken? Email us with your device model, iOS version, and a description of the issue. Screenshots are always helpful.</p>
-
     <h3>💳 Billing & Subscriptions</h3>
     <p>Manage or cancel your subscription through your Apple ID settings under Subscriptions. For refund requests, contact us directly at <a href="mailto:help@soularc.app" style="color:var(--purple-light);text-decoration:underline;">help@soularc.app</a>.</p>
-
     <h3>💡 Feature Requests</h3>
     <p>Have an idea that would deepen your shadow work practice? We'd love to hear it — send suggestions to <a href="mailto:help@soularc.app" style="color:var(--purple-light);text-decoration:underline;">help@soularc.app</a>.</p>
   </div>
 </div>
 
-<!-- WAITLIST -->
+<!-- WAITLIST MODAL -->
 <div class="modal-overlay" id="modal-waitlist" onclick="if(event.target===this) closeModal('waitlist')">
   <div class="modal-box" style="text-align:center; padding: 48px 32px 40px;">
     <button class="modal-close" onclick="closeModal('waitlist')" aria-label="Close">✕</button>
@@ -1291,11 +1156,11 @@
   </div>
 </div>
 
-<!-- ─── TOAST ─── -->
+<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
 <script>
-// ── Generate stars (reduced) ──
+// Stars
 const starsContainer = document.getElementById('stars');
 for (let i = 0; i < 55; i++) {
   const star = document.createElement('div');
@@ -1310,14 +1175,11 @@ for (let i = 0; i < 55; i++) {
   starsContainer.appendChild(star);
 }
 
-// ── Carousel ──
-// ─── CAROUSEL ───
-// Slide order: 0=waving skeleton(img3), 1=home(img2), 2=archetype(img1)
-// For each front slide: [left-fan-img, right-fan-img]
+// Carousel
 var bgPairs = [
-  ['soul-arc-img-2.webp', 'soul-arc-img-1.webp'],  // slide 0 front: show home + archetype behind
-  ['soul-arc-img-3.webp', 'soul-arc-img-1.webp'],  // slide 1 front: show skeleton + archetype behind
-  ['soul-arc-img-3.webp', 'soul-arc-img-2.webp']   // slide 2 front: show skeleton + home behind
+  ['soul-arc-img-2.webp', 'soul-arc-img-1.webp'],
+  ['soul-arc-img-3.webp', 'soul-arc-img-1.webp'],
+  ['soul-arc-img-3.webp', 'soul-arc-img-2.webp']
 ];
 var currentSlide = 0;
 var totalSlides = 3;
@@ -1325,26 +1187,19 @@ var carouselTimer;
 
 function setSlide(index) {
   index = ((index % totalSlides) + totalSlides) % totalSlides;
-
-  // Crossfade main slides
   for (var i = 0; i < totalSlides; i++) {
     var el = document.getElementById('slide-' + i);
     if (el) el.classList.remove('active');
   }
   var target = document.getElementById('slide-' + index);
   if (target) target.classList.add('active');
-
-  // Swap fan background images
   var bgLeft = document.querySelector('#carouselBgLeft img');
   var bgRight = document.querySelector('#carouselBgRight img');
   if (bgLeft)  bgLeft.src  = bgPairs[index][0];
   if (bgRight) bgRight.src = bgPairs[index][1];
-
-  // Update dots
   document.querySelectorAll('.cdot').forEach(function(d, i) {
     d.classList.toggle('active', i === index);
   });
-
   currentSlide = index;
   resetTimer();
 }
@@ -1356,16 +1211,12 @@ function resetTimer() {
   }, 4000);
 }
 
-// Preload all images
 ['soul-arc-img-1.webp','soul-arc-img-2.webp','soul-arc-img-3.webp'].forEach(function(src) {
   var p = new Image(); p.src = src;
 });
-
-// Init
 resetTimer();
 
-
-// -- Modals --
+// Modals
 function openModal(id) {
   const el = document.getElementById('modal-' + id);
   if (!el) return;
@@ -1387,7 +1238,7 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-// -- Toast --
+// Toast
 var toastTimer;
 function showToast(msg) {
   var t = document.getElementById('toast');
@@ -1398,7 +1249,7 @@ function showToast(msg) {
   toastTimer = setTimeout(function() { t.classList.remove('show'); }, 2800);
 }
 
-// -- Waitlist --
+// Waitlist
 function submitWaitlist() {
   var el = document.getElementById('waitlist-email');
   var email = el ? el.value.trim() : '';
@@ -1406,8 +1257,6 @@ function submitWaitlist() {
     showToast('Please enter a valid email.');
     return;
   }
-
-  // Rate limit: max 3 submissions per hour
   var now = Date.now();
   var hour = 60 * 60 * 1000;
   var key = 'wl_submissions';
@@ -1419,8 +1268,6 @@ function submitWaitlist() {
   }
   submissions.push(now);
   localStorage.setItem(key, JSON.stringify(submissions));
-
-  // Submit to Formspree
   fetch('https://formspree.io/f/mzdkdzlj', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -1438,9 +1285,7 @@ function submitWaitlist() {
   });
 }
 
-//
-
-// ─── FADE-UP INTERSECTION OBSERVER ───
+// Fade-up observer
 (function() {
   var els = document.querySelectorAll('.fade-up');
   if (!els.length) return;
@@ -1453,7 +1298,6 @@ function submitWaitlist() {
     });
   }, { threshold: 0.1 });
   els.forEach(function(el) { observer.observe(el); });
-  // Also trigger hero elements immediately since they're above the fold
   document.querySelectorAll('.hero .fade-up').forEach(function(el) {
     el.classList.add('visible');
   });
